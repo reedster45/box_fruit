@@ -2,8 +2,14 @@
 
 <h1>Movie Title: <%= magnet %></h1>
 
+<!-- https://www.w3schools.com/tags/tag_video.asp -->
 <video controls>
     <source src="/torrent_id?magnet=<%= magnet %>">
+
+    <!-- Subtitles -->
+    <track src="subtitles_en.vtt" kind="subtitles" srclang="en" label="English">
+    <track src="subtitles_fr.vtt" kind="subtitles" srclang="fr" label="French">
+    <track src="subtitles_es.vtt" kind="subtitles" srclang="es" label="Spanish">
     Your browser does not support the video tag
 </video>
 
