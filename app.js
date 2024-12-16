@@ -40,6 +40,9 @@ app.get('/tvshow', (req, res) => {
   res.render('tv_show');
 });
 
+app.get('/favs', (req, res) => {
+  res.render('favorites');
+});
 
 // page for streaming media
 app.get('/stream', (req, res) => {
@@ -55,6 +58,11 @@ app.get('/torrent_id', (req, res) => {
     return res.status(400).send("Magnet link is required");
   }
 
+  // error listener for loading webtorrent magnet link
+  client.on('error', (err) => {
+    console.error('WebTorrent error:', err.message);
+  });
+
   client.add(torrentMagnet, (torrent) => {
     // Assuming the first file is the video file
     const videoFile = torrent.files[0];
@@ -64,7 +72,7 @@ app.get('/torrent_id', (req, res) => {
     res.setHeader('Content-Length', videoFile.length);
 
     // Pipe the file content to the response (streaming the video)
-    videoFile.createReadStream().pipe(res);
+    videoFile.createReadStream().pipe(res); 
   });
 });
 

@@ -1,10 +1,17 @@
 <%- include('partials/header', { title: 'STREAM' }) %>
 
-<h1>Link: <%= magnet %></h1>
+<h1>Movie Title: <%= magnet %></h1>
 
 <video controls>
     <source src="/torrent_id?magnet=<%= magnet %>">
     Your browser does not support the video tag
 </video>
+
+<p>
+    server 1
+    server 2
+    server 3
+    server 4
+</p>
 
 <%- include('partials/footer') %>

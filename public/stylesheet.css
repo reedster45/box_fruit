@@ -1,4 +1,9 @@
 
+html {
+    padding: 0;
+    margin: 0;
+}
+
 body {
     color: antiquewhite;
     background-color: #1d1d1d;
@@ -10,3 +15,14 @@ video {
     height: auto;
     border: 2px solid #000;
 }
+
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #333;
+    color: white;
+    text-align: center;
+  }
