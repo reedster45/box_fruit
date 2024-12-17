@@ -4,14 +4,16 @@ import express from 'express';
 import WebTorrent from 'webtorrent';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import bodyParser from 'body-parser'
+import sqlite3 from 'sqlite3';
+import { readFile } from 'fs' // Async version of readFile
 
 
 const app = express();
+const db_path = 'database/database.db'
 const port = 3000;
 
 const client = new WebTorrent();
-
-
 
 // Convert the current module URL to a file path and derive __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -23,6 +25,46 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Serve static files (like CSS, JS) from the 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Middleware
+app.use(bodyParser.json());
+
+
+
+
+
+// Open SQLite database (it will create the database file if it doesn't exist)
+const db = new sqlite3.Database(db_path, (err) => {
+  if (err) {
+    console.error('Error opening database:', err.message);
+  } else {
+    console.log('Connected to the SQLite database.');
+  }
+});
+
+// Function to initialize the database by executing the create_database.sql file
+function initializeDatabase() {
+  // Asynchronously read the SQL statements from the create_database.sql file
+  readFile('./src/create_database.sql', 'utf-8', (err, sql) => {
+    if (err) {
+      console.error('Error reading the SQL file:', err.message);
+      return;
+    }
+
+    // Execute the SQL to create tables (if not already created)
+    db.exec(sql, (err) => {
+      if (err) {
+        console.error('Error executing SQL from file:', err.message);
+      } else {
+        console.log('Database tables checked/created from SQL file.');
+      }
+    });
+  });
+}
+
+// init database - should I leave it here?
+initializeDatabase();
+
 
 
 
