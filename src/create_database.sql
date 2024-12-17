@@ -1,6 +1,11 @@
 -- get rid of unecessary NOT NULL
 -- review tables and specifics
 
+-- IDEA: CREATE DATABASE ONCE
+--       EVERYTIME YOU OPEN APP - RUN load_database.py in background and then add new entries to database if they don't already exist
+--       MAINTAIN A NEW UPDATES TABLE THAT HOLDS THE 30ish NEWEST MOVIES & SHOWS
+--       RUN THE DATABASE ASYNC TO THE STREAMING
+
 
 CREATE TABLE title_akas (
     titleId TEXT NOT NULL,
