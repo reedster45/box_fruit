@@ -1,3 +1,8 @@
+
+# RENAME TO fetch_database.py
+# fetches datasets from IMDB website
+
+
 import os
 import requests
 import gzip

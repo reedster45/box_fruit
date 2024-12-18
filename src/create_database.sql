@@ -1,4 +1,4 @@
--- get rid of unecessary NOT NULL
+-- get rid of unecessary
 -- review tables and specifics
 
 -- IDEA: CREATE DATABASE ONCE
@@ -15,25 +15,25 @@
 
 
 CREATE TABLE IF NOT EXISTS title_akas (
-    titleId TEXT NOT NULL,
-    ordering INTEGER NOT NULL,
-    title TEXT NOT NULL,
-    region TEXT NOT NULL,
-    language TEXT NOT NULL,
+    titleId TEXT,
+    ordering INTEGER,
+    title TEXT,
+    region TEXT,
+    language TEXT,
     types TEXT, -- Storing array as a comma-separated string
     attributes TEXT, -- Storing array as a comma-separated string
-    isOriginalTitle BOOLEAN NOT NULL,
+    isOriginalTitle BOOLEAN,
     PRIMARY KEY (titleId, ordering)
 );
 
 CREATE TABLE IF NOT EXISTS title_basics (
     tconst TEXT PRIMARY KEY, -- Alphanumeric unique identifier of the title
-    titleType TEXT NOT NULL,
-    primaryTitle TEXT NOT NULL,
+    titleType TEXT,
+    primaryTitle TEXT,
     originalTitle TEXT,
-    isAdult BOOLEAN NOT NULL,
+    isAdult BOOLEAN,
     startYear INTEGER,
-    endYear INTEGER, -- Use NULL for titles that don't have an end year
+    endYear INTEGER, -- for titles that don't have an end year
     runtimeMinutes INTEGER,
     genres TEXT -- Storing array as a comma-separated string
 );
@@ -46,16 +46,16 @@ CREATE TABLE IF NOT EXISTS title_crew (
 
 CREATE TABLE IF NOT EXISTS title_episode (
     tconst TEXT PRIMARY KEY, -- Alphanumeric identifier of episode
-    parentTconst TEXT NOT NULL, -- Alphanumeric identifier of the parent TV Series
-    seasonNumber INTEGER NOT NULL,
-    episodeNumber INTEGER NOT NULL
+    parentTconst TEXT, -- Alphanumeric identifier of the parent TV Series
+    seasonNumber INTEGER,
+    episodeNumber INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS title_principals (
-    tconst TEXT NOT NULL,
-    ordering INTEGER NOT NULL,
-    nconst TEXT NOT NULL, -- Alphanumeric unique identifier of the name/person
-    category TEXT NOT NULL,
+    tconst TEXT,
+    ordering INTEGER,
+    nconst TEXT, -- Alphanumeric unique identifier of the name/person
+    category TEXT,
     job TEXT, -- Specific job title if applicable
     characters TEXT, -- The name of the character played if applicable
     PRIMARY KEY (tconst, ordering)
@@ -63,15 +63,15 @@ CREATE TABLE IF NOT EXISTS title_principals (
 
 CREATE TABLE IF NOT EXISTS title_ratings (
     tconst TEXT PRIMARY KEY, -- Alphanumeric unique identifier of the title
-    averageRating REAL NOT NULL,
-    numVotes INTEGER NOT NULL
+    averageRating REAL,
+    numVotes INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS name_basics (
     nconst TEXT PRIMARY KEY, -- Alphanumeric unique identifier of the name/person
-    primaryName TEXT NOT NULL, -- Name by which the person is most often credited
+    primaryName TEXT, -- Name by which the person is most often credited
     birthYear INTEGER, -- In YYYY format
-    deathYear INTEGER, -- In YYYY format if applicable, NULL if not applicable
+    deathYear INTEGER, -- In YYYY format if applicable
     primaryProfession TEXT, -- Storing array as a comma-separated string
     knownForTitles TEXT -- Storing array of tconsts as a comma-separated string
 );
@@ -88,6 +88,6 @@ CREATE TABLE IF NOT EXISTS name_basics (
 
 -- cd database
 -- sqlite3 database.db
--- CREATE TABLE IF NOT EXISTS titles (titleId TEXT NOT NULL, ordering INTEGER NOT NULL, title TEXT NOT NULL, region TEXT, language TEXT, types TEXT, attributes TEXT, isOriginalTitle INTEGER NOT NULL, PRIMARY KEY (titleId, ordering));
+-- CREATE TABLE IF NOT EXISTS titles (titleId TEXT, ordering INTEGER, title TEXT, region TEXT, language TEXT, types TEXT, attributes TEXT, isOriginalTitle INTEGER, PRIMARY KEY (titleId, ordering));
 -- .mode tabs
 -- .import title.akas.tsv titles
