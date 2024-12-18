@@ -11,20 +11,52 @@
 
   <!-- Link to the stylesheet from the public folder -->
   <link rel="stylesheet" href="/stylesheet.css">
-
-  <!-- Link to the JavaScript file from the public folder -->
-  <script src="/views.js" defer></script>
 </head>
 
-<body class="container">
-  <header>
-    <nav>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/movie">movie</a></li>
-        <li><a href="/tvshow">tv_show</a></li>
-        <li><a href="/stream">watch_media</a></li>
-        <li><a href="/favs">favorites</a></li>
-      </ul>
-    </nav>
-  </header>
+<body>
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" href="/movie">Movies</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/tvshow">TV Shows</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/">Browse</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/stream">Downloads</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/favs">Favorites</a>
+      </li>
+    </ul>
+  </div>
+
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <!-- Hamburger Icon (visible on smaller screens) -->
+      <button class="navbar-toggler" type="button" id="sidebar-toggle" aria-label="Toggle sidebar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Left side: Home button and Search bar -->
+      <a class="navbar-brand" href="/">Box Fruit</a>
+      <form class="d-flex ms-3" role="search">
+        <input class="form-control me-2" id="search" type="search" placeholder="Search" aria-label="Search">
+      </form>
+
+      <!-- Right side: Settings button -->
+      <button class="btn btn-outline-secondary ms-auto" type="button">Settings</button>
+    </div>
+  </nav>
+
+
+
+  <div class="main-container container">
+
+  

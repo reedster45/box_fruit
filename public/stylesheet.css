@@ -1,13 +1,84 @@
 
-html {
+html, body {
+    height: 100%;
     padding: 0;
     margin: 0;
-}
-
-body {
     color: antiquewhite;
     background-color: #1d1d1d;
 }
+
+
+/* header.ejs */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+#search {
+    background-color: #495057;
+    color: antiquewhite;
+    border-radius: 0;
+    outline: none;
+    border: none;
+}
+
+#search:focus {
+    outline: none;
+    border: none;
+}
+
+
+/* Sidebar styles */
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Initially hidden on the left side */
+    width: 250px;
+    height: 100%;
+    background-color: #343a40;
+    color: white;
+    transition: left 0.3s ease-in-out;
+    padding-top: 5%;
+    z-index: 900;
+}
+
+#sidebar .nav-link {
+color: white;
+padding: 10px 15px;
+}
+
+#sidebar .nav-link:hover {
+background-color: #495057;
+}
+
+/* When sidebar is active (toggled), move it to the left */
+#sidebar.show {
+left: 0;
+}
+
+/* When sidebar is open, shift the content */
+body.sidebar-open .container {
+    margin-left: 250px; /* Push the content to the right */
+    width: calc(100% - 250px);
+}
+
+.main-container {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    height: 100vh;
+}
+
+/* other.ejs */
+
+
+
+
+
+
+
 
 
 video {
@@ -18,11 +89,13 @@ video {
 
 
 footer {
-    position: fixed;
+    position: relative;
     bottom: 0;
     left: 0;
     width: 100%;
     background: #333;
     color: white;
     text-align: center;
+    padding: 0;
+    margin: 0;
   }
