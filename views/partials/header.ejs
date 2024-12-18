@@ -9,6 +9,9 @@
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
   <!-- Link to the stylesheet from the public folder -->
   <link rel="stylesheet" href="/stylesheet.css">
 </head>
@@ -18,13 +21,16 @@
   <div id="sidebar">
     <ul class="nav flex-column">
       <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="/movie">Movies</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/tvshow">TV Shows</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/">Browse</a>
+        <a class="nav-link" href="/browse">Browse</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/stream">Downloads</a>
@@ -40,18 +46,23 @@
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
       <!-- Hamburger Icon (visible on smaller screens) -->
-      <button class="navbar-toggler" type="button" id="sidebar-toggle" aria-label="Toggle sidebar">
-        <span class="navbar-toggler-icon"></span>
+      <button class="navbar-toggler kill-borders" type="button" id="sidebar-toggle" aria-label="Toggle sidebar">
+        <span class="navbar-toggler-icon kill-borders"></span>
       </button>
 
       <!-- Left side: Home button and Search bar -->
-      <a class="navbar-brand" href="/">Box Fruit</a>
-      <form class="d-flex ms-3" role="search">
-        <input class="form-control me-2" id="search" type="search" placeholder="Search" aria-label="Search">
+      <a class="navbar-brand px-2" href="/">Box Fruit</a>
+      <form class="d-flex ms-3 kill-borders" id="search-bar" role="search">
+        <div class="input-group">
+          <button class="btn" type="sumbit" id="search-bth">
+            <i class="bi bi-search" id="search-icon"></i>
+          </button>
+          <input class="form-control me-2 kill-borders" id="search" type="search" aria-label="Search">
+        </div>
       </form>
 
       <!-- Right side: Settings button -->
-      <button class="btn btn-outline-secondary ms-auto" type="button">Settings</button>
+      <button class="btn ms-auto kill-borders me-4" id="settings" type="button"><i class="bi bi-gear-fill"></i></button>
     </div>
   </nav>
 

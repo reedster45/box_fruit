@@ -1,4 +1,6 @@
 
+
+
 html, body {
     height: 100%;
     padding: 0;
@@ -17,19 +19,33 @@ html, body {
     z-index: 1000;
   }
 
+#search-bar {
+    background-color: #495057;
+    width: 35vw;
+}
+
 #search {
     background-color: #495057;
-    color: antiquewhite;
     border-radius: 0;
-    outline: none;
-    border: none;
+    color: antiquewhite;
 }
 
-#search:focus {
-    outline: none;
-    border: none;
+input[type="search"]::-webkit-search-cancel-button {
+    display: none; /* Hides the "x" button */
 }
 
+#search-icon {
+    color: antiquewhite;
+}
+
+#settings {
+    font-size: large;
+    color: #495057;
+}
+
+#settings:hover {
+    color: antiquewhite;
+}
 
 /* Sidebar styles */
 #sidebar {
@@ -65,13 +81,20 @@ body.sidebar-open .container {
     width: calc(100% - 250px);
 }
 
+
 .main-container {
     padding-top: 5%;
     padding-bottom: 5%;
     height: 100vh;
 }
 
-/* other.ejs */
+
+
+
+/* home.ejs */
+.home {
+    transition: all 0.5s ease-in-out;
+}
 
 
 
@@ -99,3 +122,30 @@ footer {
     padding: 0;
     margin: 0;
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* add class to remove unwanted borders and outlines */
+.kill-borders {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.kill-borders:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}

@@ -82,6 +82,10 @@ app.get('/tvshow', (req, res) => {
   res.render('tv_show');
 });
 
+app.get('/browse', (req, res) => {
+  res.render('browse');
+});
+
 app.get('/favs', (req, res) => {
   res.render('favorites');
 });
