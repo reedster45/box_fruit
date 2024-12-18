@@ -1,12 +1,12 @@
 
 
+import { fileURLToPath } from 'url';
+import { readFile } from 'fs' // Async version of readFile
 import express from 'express';
 import WebTorrent from 'webtorrent';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser'
 import sqlite3 from 'sqlite3';
-import { readFile } from 'fs' // Async version of readFile
 
 
 const app = express();
@@ -142,5 +142,4 @@ app.get('/torrent_id', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
-
 
