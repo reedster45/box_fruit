@@ -3,6 +3,8 @@
 const sidebarToggle = document.getElementById('sidebar-toggle');
 const sidebar = document.getElementById('sidebar');
 
+// document.getElementById('videoPlayer').volume = 1.0;
+
 
 // Check if the sidebar was open on a previous page visit (from localStorage)
 if (localStorage.getItem('sidebarOpen') === 'true') {
