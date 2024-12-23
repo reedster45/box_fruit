@@ -111,11 +111,17 @@ app.get('/torrent_id', (req, res) => {
   const infoHash = extractInfoHash(magnetLink); // Extract the infoHash from the magnet link
 
   // Check if the torrent is already added by infoHash
-  const existingTorrent = client.torrents.find(torrent => torrent.infoHash === infoHash);
+  let curr_torrent;
+  const existingTorrent = client.torrents.some((torrent) => {
+    curr_torrent = torrent;
+    return torrent.infoHash.toLowerCase() === infoHash.toLowerCase();
+  });
+  console.log(infoHash);
+  console.log(existingTorrent);
 
   if (existingTorrent) {
-    console.log(`Torrent already added: ${existingTorrent.infoHash}`);
-    return handleTorrent(existingTorrent, res);
+    console.log(`Torrent already added: ${curr_torrent.infoHash}`);
+    return handleTorrent(curr_torrent, res);
   }
 
   client.add(magnetLink, (torrent) => {
@@ -159,18 +165,20 @@ app.get('/torrent_id', (req, res) => {
     }
   
     const chunkSize = end - start + 1;
-    // res.writeHead(206, {
-    //   "Content-Range": `bytes ${start}-${end}/${fileSize}`,
-    //   "Accept-Ranges": "bytes",
-    //   "Content-Length": chunkSize,
-    //   "Content-Type": "video/mkv"
-    // });
+    if (!res.headersSent) {
+      console.log("sending headers...");
+      res.writeHead(206, {
+        "Content-Range": `bytes ${start}-${end}/${fileSize}`,
+        "Accept-Ranges": "bytes",
+        "Content-Length": chunkSize,
+        "Content-Type": "video/mkv"
+      });
+    }
   
     // stream content in range
     console.log(start, end);
     const stream = file.createReadStream({ start, end });
     stream.pipe(res);
-  
   
   
     // Handle stream events
