@@ -76,6 +76,7 @@ background-color: #495057;
 left: 0;
 }
 
+
 /* When sidebar is open, shift the content */
 body.sidebar-open .container {
     margin-left: 250px; /* Push the content to the right */
@@ -93,11 +94,16 @@ body.sidebar-open .container {
 
 
 /* home.ejs */
-.home {
-    transition: all 0.5s ease-in-out;
+.img-thumbnail {
+    border-radius: 0 5% 5% 5%;
+    width: 280px;
+    height: 300px;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    background-color: black;
 }
-
-
 
 
 
@@ -138,6 +144,7 @@ footer {
     text-align: center;
     padding: 0;
     margin: 0;
+    font-size: xx-small;
   }
 
 
