@@ -14,13 +14,18 @@ function createWindow() {
     fullscreen: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'), // Optional, if using a preload script
-      nodeIntegration: false,
+      nodeIntegration: false,      // Good practice to keep this false
+      contextIsolation: true,      // Keep this true for security
+      enableRemoteModule: false,   // Disable remote module to enhance security
+      webSecurity: false,          // Set to false for local media resources (use cautiously)
+      allowRunningInsecureContent: true,  // To allow certain media types
     },
   });
 
   // Load the Express app's URL (running on localhost)
   win.loadURL('http://localhost:3000');
 }
+
 
 app.whenReady().then(() => {
   createWindow();

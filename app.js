@@ -13,8 +13,6 @@ const app = express();
 const db_path = 'database/database.db'
 const port = 3000;
 
-const client = new WebTorrent();
-
 // Convert the current module URL to a file path and derive __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -68,6 +66,12 @@ initializeDatabase();
 
 
 
+// setup WebTorrent client & handle errors
+const client = new WebTorrent();
+
+
+
+
 
 // Routes for pages
 app.get('/', (req, res) => {
@@ -98,69 +102,117 @@ app.get('/favs', (req, res) => {
 
 // page for streaming media
 app.get('/stream', (req, res) => {
-  const magnet_link = "magnet:?xt=urn:btih:2150DBD1E4CD9B64F217D78AEDB71116B3C098E0&dn=Gladiator%202%202024%201080p%20WEB-DL%20ENGLiSH%20x264-BAUCKLEY&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Ftracker.bittor.pw%3A1337%2Fannounce&tr=udp%3A%2F%2Fpublic.popcorn-tracker.org%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.dler.org%3A6969%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce";
-  //  const magnet_link = "magnet:?xt=urn:btih:2150DBD1E4CD9B64F217D78AEDB71116B3C098E0";
-  const encoded_magnet_link = encodeURIComponent(magnet_link);
-  res.render('stream', { magnet: encoded_magnet_link });
+  const magnet_link = encodeURIComponent("magnet:?xt=urn:btih:B26C545F17BCFCF0303A653E6F08318C39A373DD&dn=Gladiator%20II%202024%201080p%20TELESYNC%20x264%20AC3-AOC&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Ftracker.bittor.pw%3A1337%2Fannounce&tr=udp%3A%2F%2Fpublic.popcorn-tracker.org%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.dler.org%3A6969%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce");
+  res.render('stream', { magnet: magnet_link });
 });
 
 app.get('/torrent_id', (req, res) => {
   const magnetLink = decodeURIComponent(req.query.magnet);
+  const infoHash = extractInfoHash(magnetLink); // Extract the infoHash from the magnet link
 
-  if (!magnetLink) {
-    return res.status(400).send("Magnet link is required");
+  // Check if the torrent is already added by infoHash
+  const existingTorrent = client.torrents.find(torrent => torrent.infoHash === infoHash);
+
+  if (existingTorrent) {
+    console.log(`Torrent already added: ${existingTorrent.infoHash}`);
+    return handleTorrent(existingTorrent, res);
   }
 
   client.add(magnetLink, (torrent) => {
-    const videoFile = torrent.files.find(file => file.name.endsWith('.mp4') || file.name.endsWith('.mkv'));
+    console.log(`Torrent added: ${torrent.infoHash}`);
+    handleTorrent(torrent, res);
+  });
 
-    if (!videoFile) {
-      return res.status(404).send('Video file not found');
+  function handleTorrent(torrent, res) {
+    // print name of each file in torrent
+    torrent.files.forEach(file => {
+      console.log(file.name);
+    });
+  
+    // You can access files within the torrent
+    const file = torrent.files.find(file => file.name.endsWith('.mkv')); // Adjust based on the file type 
+  
+    if (!file) {
+      return res.status(404).send("No matching video file found.");
     }
-
+  
+    res.setHeader('Content-Type', 'video/mkv');
+  
+    // Get the Range header
     const range = req.headers.range;
-    let stream;
-
-    if (range) {
-      const [start, end] = range.replace(/bytes=/, "").split("-").map(Number);
-      const startByte = Math.min(start, videoFile.length - 1);
-      const endByte = Math.min(end || videoFile.length - 1, videoFile.length - 1);
-
-      if (startByte >= videoFile.length || endByte >= videoFile.length) {
-        return res.status(416).send('Requested range not satisfiable');
-      }
-
-      res.status(206);
-      res.setHeader('Content-Range', `bytes ${startByte}-${endByte}/${videoFile.length}`);
-      res.setHeader('Content-Length', endByte - startByte + 1);
-      res.setHeader('Content-Type', videoFile.mime || 'video/mkv');
-
-      stream = videoFile.createReadStream({ start: startByte, end: endByte });
-    } else {
-      res.setHeader('Content-Type', videoFile.mime || 'video/mkv');
-      res.setHeader('Content-Length', videoFile.length);
-
-      stream = videoFile.createReadStream();
+    if (!range) {
+      return res.status(400).send("Requires Range header");
+      // const stream = file.createReadStream();
+      // stream.pipe(res);
     }
-
-    // handle errors?
-    client.on('error', (err) => {
-      console.error('Error:', err);
+    
+    console.log('Range request received:', range);
+    
+    const matches = range.replace(/bytes=/, "").split("-");
+    const start = parseInt(matches[0], 10);
+    const fileSize = file.length;
+    const end = matches[1] ? parseInt(matches[1], 10) : fileSize - 1;
+  
+    // ensure range is valid
+    if (start >= fileSize || end >= fileSize) {
+      return res.status(416).send('Requested Range Not Satisfiable');
+    }
+  
+    const chunkSize = end - start + 1;
+    // res.writeHead(206, {
+    //   "Content-Range": `bytes ${start}-${end}/${fileSize}`,
+    //   "Accept-Ranges": "bytes",
+    //   "Content-Length": chunkSize,
+    //   "Content-Type": "video/mkv"
+    // });
+  
+    // stream content in range
+    console.log(start, end);
+    const stream = file.createReadStream({ start, end });
+    stream.pipe(res);
+  
+  
+  
+    // Handle stream events
+    stream.on('open', () => {
+      console.log('Streaming data now...');
+    });
+  
+    stream.on('end', () => {
+      console.log('Stream ended.');
+    });
+  
+    stream.on('error', (err) => {
+      console.error('Stream error:', err);
       if (!res.headersSent) {
-        res.status(500).send('Error streaming video');
+        res.status(500).send('Internal Server Error');
       }
     });
-
-    stream.pipe(res);
-  });
-
-  client.on('error', (err) => {
-    console.error('Error:', err);
-    if (!res.headersSent) {
-      res.status(500).send('Error processing torrent');
-    }
-  });
+  
+    res.on('close', () => {
+      console.log('Client closed the connection.');
+      stream.destroy();  // Clean up the stream if client disconnects
+    });
+  
+  
+  
+    // Handle stream progress
+    torrent.on('download', (bytes) => {
+      // console.log(`Downloaded ${bytes} bytes`);
+    });
+  
+    torrent.on('done', () => {
+      console.log('Download complete');
+    });
+  }
 });
+
+// Helper function to extract infoHash from the magnet link
+function extractInfoHash(magnetLink) {
+  const regex = /xt=urn:btih:([a-f0-9]{40})/i;
+  const match = magnetLink.match(regex);
+  return match ? match[1] : null;
+}
 
 
 
