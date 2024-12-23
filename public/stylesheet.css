@@ -104,6 +104,11 @@ body.sidebar-open .container {
 
 
 
+/* stream.ejs */
+.stream-content {
+    height: 100%;
+    width: 100%;
+}
 
 video {
     width: 100%;
@@ -111,7 +116,21 @@ video {
     border: 2px solid #000;
 }
 
+.server-button {
+    margin: 0 2% 0 2%;
+    padding: 0 1% 0 1%;
+    border-radius: 10%;
+    background-color: #000;
+    color: white;
+}
 
+
+
+
+
+
+
+/* footer */
 footer {
     width: 100%;
     background: #333;

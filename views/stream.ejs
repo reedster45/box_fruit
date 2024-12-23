@@ -1,21 +1,35 @@
 <%- include('partials/header') %>
 
-<div>
-    <h1>Movie/Show Title</h1>
-    <!-- https://www.w3schools.com/tags/tag_video.asp -->
-    <video id="video-player" controls>
-        <source src="/torrent_id?magnet=<%= magnet %>">
+<div class="container-fluid d-flex justify-content-center align-items-center">
+    <div class="stream-content text-center">
+        <h1 class="py-5">Gladiator II</h1>
+        <!-- https://www.w3schools.com/tags/tag_video.asp -->
+        <video id="video-player" controls>
+            <source src="/torrent_id?magnet=<%= magnet %>">
 
-        <!-- Subtitles -->
-        Your browser does not support the video tag
-    </video>
+            <!-- Subtitles -->
+            Your browser does not support the video tag
+        </video>
 
-    <p>
-        server 1
-        server 2
-        server 3
-        server 4
-    </p>
+        <div class="d-flex justify-content-center py-3 px-5 w-100">
+            <button class="server-button" type="button">
+                server 1
+            </button>
+
+            <button class="server-button" type="button">
+                server 2
+            </button>
+
+            <button class="server-button" type="button">
+                server 3
+            </button>
+
+            <button class="server-button" type="button">
+                server 4
+            </button>
+        </div>
+    </div>
 </div>
+
 
 <%- include('partials/footer') %>
