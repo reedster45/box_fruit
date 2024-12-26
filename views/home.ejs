@@ -6,74 +6,19 @@
 
 <div class="d-flex justify-content-center align-items-center">
     <div class="container-fluid mt-4">
-        <div class="row">
-            <!-- Create a 5x5 grid -->
-            <!-- Repeat this block 25 times for each image -->
-            <div class="col-2 mb-4">
-                <img src="https://m.media-amazon.com/images/M/MV5BMDcxOGEwNTktZTA0Yi00ZTFlLTkxNTItM2M2MmY0YTI2MTBhXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 1">
+        
+        <% for (var i=0; i<6; i++) { %>
+            <div class="row">
+                <!-- Create a 6x6 grid -->
+                <!-- Repeat this block 36 times for each image -->
+                <% for (var j=0; j<6; j++) { %>
+                    <div class="col-2 mb-4">
+                        <img src="https://m.media-amazon.com/images/M/MV5BYTYzMTlmNDctNmVkNS00YzRlLWE5MjAtODdjZWRkYzRlNWVlXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 1">
+                    </div>
+                <% } %>
             </div>
-            <div class="col-2 mb-4">
-                <img src="https://m.media-amazon.com/images/M/MV5BMDcxOGEwNTktZTA0Yi00ZTFlLTkxNTItM2M2MmY0YTI2MTBhXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 2">
-            </div>
-            <div class="col-2 mb-4">
-                <img src="https://m.media-amazon.com/images/M/MV5BMDcxOGEwNTktZTA0Yi00ZTFlLTkxNTItM2M2MmY0YTI2MTBhXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 3">
-            </div>
-            <div class="col-2 mb-4">
-                <img src="https://m.media-amazon.com/images/M/MV5BMDcxOGEwNTktZTA0Yi00ZTFlLTkxNTItM2M2MmY0YTI2MTBhXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 4">
-            </div>
-            <div class="col-2 mb-4">
-                <img src="https://m.media-amazon.com/images/M/MV5BMDcxOGEwNTktZTA0Yi00ZTFlLTkxNTItM2M2MmY0YTI2MTBhXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 5">
-            </div>
-            <div class="col-2 mb-4">
-                <img src="https://m.media-amazon.com/images/M/MV5BMDcxOGEwNTktZTA0Yi00ZTFlLTkxNTItM2M2MmY0YTI2MTBhXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 5">
-            </div>
-        </div>
+        <% } %>
 
-        <div class="row">
-            <!-- Create a 5x5 grid -->
-            <!-- Repeat this block 25 times for each image -->
-            <div class="col-2 mb-4">
-                <img src="https://m.media-amazon.com/images/M/MV5BMDAyY2FhYjctNDc5OS00MDNlLThiMGUtY2UxYWVkNGY2ZjljXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail h-100 w-80" alt="Thumbnail 1">
-            </div>
-            <div class="col-2 mb-4">
-                <img src="https://m.media-amazon.com/images/M/MV5BMDcxOGEwNTktZTA0Yi00ZTFlLTkxNTItM2M2MmY0YTI2MTBhXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 2">
-            </div>
-            <div class="col-2 mb-4">
-                <img src="https://m.media-amazon.com/images/M/MV5BMDcxOGEwNTktZTA0Yi00ZTFlLTkxNTItM2M2MmY0YTI2MTBhXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 3">
-            </div>
-            <div class="col-2 mb-4">
-                <img src="https://m.media-amazon.com/images/M/MV5BMDcxOGEwNTktZTA0Yi00ZTFlLTkxNTItM2M2MmY0YTI2MTBhXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 4">
-            </div>
-            <div class="col-2 mb-4">
-                <img src="https://m.media-amazon.com/images/M/MV5BMDcxOGEwNTktZTA0Yi00ZTFlLTkxNTItM2M2MmY0YTI2MTBhXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 5">
-            </div>
-            <div class="col-2 mb-4">
-                <img src="https://m.media-amazon.com/images/M/MV5BMDcxOGEwNTktZTA0Yi00ZTFlLTkxNTItM2M2MmY0YTI2MTBhXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 5">
-            </div>
-        </div>
-
-        <div class="row">
-            <!-- Create a 5x5 grid -->
-            <!-- Repeat this block 25 times for each image -->
-            <div class="col-2 mb-4">
-                <img src="https://m.media-amazon.com/images/M/MV5BMDAyY2FhYjctNDc5OS00MDNlLThiMGUtY2UxYWVkNGY2ZjljXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail h-100 w-80" alt="Thumbnail 1">
-            </div>
-            <div class="col-2 mb-4">
-                <img src="https://m.media-amazon.com/images/M/MV5BMDcxOGEwNTktZTA0Yi00ZTFlLTkxNTItM2M2MmY0YTI2MTBhXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 2">
-            </div>
-            <div class="col-2 mb-4">
-                <img src="https://m.media-amazon.com/images/M/MV5BMDcxOGEwNTktZTA0Yi00ZTFlLTkxNTItM2M2MmY0YTI2MTBhXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 3">
-            </div>
-            <div class="col-2 mb-4">
-                <img src="https://m.media-amazon.com/images/M/MV5BMDcxOGEwNTktZTA0Yi00ZTFlLTkxNTItM2M2MmY0YTI2MTBhXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 4">
-            </div>
-            <div class="col-2 mb-4">
-                <img src="https://m.media-amazon.com/images/M/MV5BMDcxOGEwNTktZTA0Yi00ZTFlLTkxNTItM2M2MmY0YTI2MTBhXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 5">
-            </div>
-            <div class="col-2 mb-4">
-                <img src="https://m.media-amazon.com/images/M/MV5BMDcxOGEwNTktZTA0Yi00ZTFlLTkxNTItM2M2MmY0YTI2MTBhXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 5">
-            </div>
-        </div>
     </div>
 </div>
 
