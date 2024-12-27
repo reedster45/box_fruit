@@ -97,17 +97,65 @@ body.sidebar-open .container {
 
 
 
+
+
 /* home.ejs */
+.home-headers {
+    margin: 50px 0 5px 0;
+    padding-left: 10px;
+}
+
 .img-thumbnail {
     border-radius: 0 5% 5% 5%;
-    width: 280px;
+    width: 200px;
     height: 300px;
     outline: none;
     border: none;
     box-shadow: none;
     padding: 0;
     background-color: black;
+    cursor: pointer;
 }
+
+.scroll-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    position: relative;
+    width: 100%;
+
+}
+
+.scroll-container::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, and Opera */
+  }
+
+.scroll-container img {
+    width: 200px;
+    height: 300px;
+    margin: 10px 10px 10px 0;
+
+}
+/* Arrows */
+.arrow {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    height: 50%;
+}
+.left-arrow {
+    left: 0;
+}
+.right-arrow {
+    right: 0;
+}
+
+
+
+
+
 
 
 
