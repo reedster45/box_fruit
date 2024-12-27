@@ -34,7 +34,6 @@ sidebarToggle.addEventListener('click', function () {
 
 // horizontal scrolling (home page)
 function scrollLUM() {
-  console.log('left');
   document.getElementById('scroll-containerUM').scrollBy({
       left: -250,
       behavior: 'smooth'
@@ -42,7 +41,6 @@ function scrollLUM() {
 }
 
 function scrollRUM() {
-  console.log('right');
   document.getElementById('scroll-containerUM').scrollBy({
       left: 250,
       behavior: 'smooth'
@@ -51,7 +49,6 @@ function scrollRUM() {
 
 
 function scrollLUS() {
-  console.log('left');
   document.getElementById('scroll-containerUS').scrollBy({
       left: -250,
       behavior: 'smooth'
@@ -59,7 +56,6 @@ function scrollLUS() {
 }
 
 function scrollRUS() {
-  console.log('right');
   document.getElementById('scroll-containerUS').scrollBy({
       left: 250,
       behavior: 'smooth'
@@ -69,7 +65,6 @@ function scrollRUS() {
 
 
 function scrollLMM() {
-  console.log('left');
   document.getElementById('scroll-containerMM').scrollBy({
       left: -250,
       behavior: 'smooth'
@@ -77,7 +72,6 @@ function scrollLMM() {
 }
 
 function scrollRMM() {
-  console.log('right');
   document.getElementById('scroll-containerMM').scrollBy({
       left: 250,
       behavior: 'smooth'
@@ -86,7 +80,6 @@ function scrollRMM() {
 
 
 function scrollLMS() {
-  console.log('left');
   document.getElementById('scroll-containerMS').scrollBy({
       left: -250,
       behavior: 'smooth'
@@ -94,7 +87,6 @@ function scrollLMS() {
 }
 
 function scrollRMS() {
-  console.log('right');
   document.getElementById('scroll-containerMS').scrollBy({
       left: 250,
       behavior: 'smooth'
@@ -105,7 +97,6 @@ function scrollRMS() {
 
 
 function scrollLR() {
-  console.log('left');
   document.getElementById('scroll-containerR').scrollBy({
       left: -250,
       behavior: 'smooth'
@@ -113,7 +104,6 @@ function scrollLR() {
 }
 
 function scrollRR() {
-  console.log('right');
   document.getElementById('scroll-containerR').scrollBy({
       left: 250,
       behavior: 'smooth'
