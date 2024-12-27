@@ -63,11 +63,19 @@ function initializeDatabase() {
 // init database - should I leave it here?
 initializeDatabase();
 
-
-
-
 // setup WebTorrent client & handle errors
 const client = new WebTorrent();
+
+
+
+
+
+let imgs = ['https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTkxMWUtNzZkMDNiYjZhNmViXkEyXkFqcGc@._V1_FMjpg_UY659_.jpg',
+  'https://m.media-amazon.com/images/M/MV5BMDcxOGEwNTktZTA0Yi00ZTFlLTkxNTItM2M2MmY0YTI2MTBhXkEyXkFqcGc@._V1_.jpg',
+  'https://m.media-amazon.com/images/M/MV5BYTYzMTlmNDctNmVkNS00YzRlLWE5MjAtODdjZWRkYzRlNWVlXkEyXkFqcGc@._V1_.jpg'
+];
+
+
 
 
 
