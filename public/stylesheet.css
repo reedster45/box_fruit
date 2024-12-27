@@ -188,6 +188,22 @@ video {
 
 
 
+
+/* tv_show.ejs */
+.episode {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.episode:hover {
+    background-color: #495057;
+}
+
+
+
+
+
+
 /* footer */
 footer {
     width: 100%;

@@ -26,11 +26,9 @@
 
 
 <div>
-    <p>
-        Episode 1<br>
-        Episode 2<br>
-        Episode 3<br>
-    </p>
+    <% for (let i = 0; i < 25; i++) { %>
+        <div class="episode" onclick="toStream()">Episode <%= i %></div>
+    <% } %>
 </div>
 
 <%- include('partials/footer') %>

@@ -27,6 +27,40 @@ sidebarToggle.addEventListener('click', function () {
 
 
 
+// redirect to movie/show
+function toMovie() {
+  const param1 = 'value1';
+  const param2 = 'value2';
+
+  // Construct the URL with parameters
+  const url = '/movie';
+
+  // Redirect to the constructed URL
+  window.location.href = url;
+}
+
+function toShow() {
+  const param1 = 'value1';
+  const param2 = 'value2';
+
+  // Construct the URL with parameters
+  const url = '/tvshow';
+
+  // Redirect to the constructed URL
+  window.location.href = url;
+}
+
+function toStream() {
+  const param1 = 'value1';
+  const param2 = 'value2';
+
+  // Construct the URL with parameters
+  const url = '/stream';
+
+  // Redirect to the constructed URL
+  window.location.href = url;
+}
+
 
 
 
