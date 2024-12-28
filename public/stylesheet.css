@@ -188,6 +188,19 @@ video {
 
 
 
+/* movie.ejs */
+.capsule {
+    background-color: red;
+}
+
+.desc-img {
+    padding: 20% 20% 20% 20%;
+    background-color: blue;
+}
+
+
+
+
 
 /* tv_show.ejs */
 .episode {
