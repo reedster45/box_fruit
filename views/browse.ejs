@@ -1,26 +1,31 @@
 <%- include('partials/header') %>
 
-<div class="browse">
-    <h1 class="browse">Browse Movies & Shows</h1>  
-</div>
 
-<div class="input-group" id="search-btn">
-    <button class="btn" type="sumbit">
-      <i class="bi bi-search" id="search-icon"></i>
-    </button>
-    <input class="form-control me-2 kill-borders" id="search" type="search" aria-label="Search">
-</div>
+<div class="main-container container">
 
-<div class="d-flex justify-content-center align-items-center">
-    <div class="container-fluid mt-3">
-        <div class="row">
-            <% for (var j=0; j<36; j++) { %>
-                <div class="col-12 col-sm-6 col-md-3 col-xxl-2 mb-3">
-                    <img src="https://m.media-amazon.com/images/M/MV5BYTYzMTlmNDctNmVkNS00YzRlLWE5MjAtODdjZWRkYzRlNWVlXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 1" onclick="toMovie()">
-                </div>
-            <% } %>
+    <div class="browse">
+        <h1 class="browse">Browse Movies & Shows</h1>  
+    </div>
+
+    <div class="input-group" id="search-btn">
+        <button class="btn" type="sumbit">
+        <i class="bi bi-search" id="search-icon"></i>
+        </button>
+        <input class="form-control me-2 kill-borders" id="search" type="search" aria-label="Search">
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="container-fluid mt-3">
+            <div class="row">
+                <% for (var j=0; j<36; j++) { %>
+                    <div class="col-12 col-sm-6 col-md-3 col-xxl-2 mb-3">
+                        <img src="https://m.media-amazon.com/images/M/MV5BYTYzMTlmNDctNmVkNS00YzRlLWE5MjAtODdjZWRkYzRlNWVlXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 1" onclick="toMovie()">
+                    </div>
+                <% } %>
+            </div>
         </div>
     </div>
+
 </div>
 
 <%- include('partials/footer') %>

@@ -1,32 +1,38 @@
 <%- include('partials/header') %>
 
-<h1>TV Show Title</h1>
 
-<div class="d-flex">
-    <div>
-        <!-- found in img viewer then inspect on IMDB (find by ID) -->
-        <img src="https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTkxMWUtNzZkMDNiYjZhNmViXkEyXkFqcGc@._V1_FMjpg_UY659_.jpg" alt="Image description">
+<div class="main-container container">
+
+
+    <h1>TV Show Title</h1>
+
+    <div class="d-flex">
+        <div>
+            <!-- found in img viewer then inspect on IMDB (find by ID) -->
+            <img src="https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTkxMWUtNzZkMDNiYjZhNmViXkEyXkFqcGc@._V1_FMjpg_UY659_.jpg" alt="Image description">
+        </div>
+
+        <div>
+            Rating
+            Director
+            Writers
+            Actors
+            Genres
+            photos
+            favorite button
+            trailer
+            etc?
+        </div>
     </div>
 
+
+
     <div>
-        Rating
-        Director
-        Writers
-        Actors
-        Genres
-        photos
-        favorite button
-        trailer
-        etc?
+        <% for (let i = 0; i < 25; i++) { %>
+            <div class="episode" onclick="toStream()">Episode <%= i %></div>
+        <% } %>
     </div>
-</div>
 
-
-
-<div>
-    <% for (let i = 0; i < 25; i++) { %>
-        <div class="episode" onclick="toStream()">Episode <%= i %></div>
-    <% } %>
 </div>
 
 <%- include('partials/footer') %>

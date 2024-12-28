@@ -1,28 +1,46 @@
 <%- include('partials/header') %>
 
-<div class="d-flex capsule">
-    <div class="desc-img">
-        <img src="https://m.media-amazon.com/images/M/MV5BYTYzMTlmNDctNmVkNS00YzRlLWE5MjAtODdjZWRkYzRlNWVlXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail">
+<div class="main-container">
+
+
+    <div class="d-flex capsule mt-5">
+        <div class="blur-overlay container-fluid">
+
+            <div class="container-fluid">
+                <div class="d-flex desc-img">
+                    <img src="https://m.media-amazon.com/images/M/MV5BMWYzZTM5ZGQtOGE5My00NmM2LWFlMDEtMGNjYjdmOWM1MzA1XkEyXkFqcGc@._V1_.jpg" class="img-thumbnail-main" alt="Thumbnail">
+                    <div class="ms-5">
+                        <h1 class="desc-title">Gladiator II</h1>
+                        <div id="rating" class="my-2 text-center">R</div>
+                        <form action="/stream" method="get">
+                            <button class="desc-btn px-5 py-3" type="submit"><i class="bi bi-play-fill px-1"></i>Watch Now</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="description">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. In, ipsum asperiores totam voluptate 
+                    sed autem sint dicta qui, iste deserunt sequi saepe cum deleniti nobis explicabo architecto quo 
+                    reprehenderit. Omnis?
+                </div>
+            </div>
+
+
+
+            <div class="desc">
+                <p class="desc-info">Rating</p>
+                <p class="desc-info">Director</p>
+                <p class="desc-info">Writers</p>
+                <p class="desc-info">Actors</p>
+                <p class="desc-info">Genres</p>
+                <p class="desc-info">photos</p>
+                <p class="desc-info">favorite button</p>
+                <p class="desc-info">trailer</p>
+            </div>
+        </div>
     </div>
 
 
-    <div class="desc">
-        <h1 class="desc-title">Movie Title</h1>
-        <p class="desc-info">Rating</p>
-        <p class="desc-info">Director</p>
-        <p class="desc-info">Writers</p>
-        <p class="desc-info">Actors</p>
-        <p class="desc-info">Genres</p>
-        <p class="desc-info">photos</p>
-        <p class="desc-info">favorite button</p>
-        <p class="desc-info">trailer</p>
-    </div>
-</div>
-
-<div>
-    <form action="/stream" method="get">
-        <button type="submit">Watch Now</button>
-    </form>
 </div>
 
 <%- include('partials/footer') %>

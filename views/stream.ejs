@@ -1,34 +1,41 @@
 <%- include('partials/header') %>
 
-<div class="container-fluid d-flex justify-content-center align-items-center">
-    <div class="stream-content text-center">
-        <h1 class="py-5">Gladiator II</h1>
-        <!-- https://www.w3schools.com/tags/tag_video.asp -->
-        <video id="video-player" controls>
-            <source src="/torrent_id?magnet=<%= magnet %>">
 
-            <!-- Subtitles -->
-            Your browser does not support the video tag
-        </video>
+<div class="main-container container">
 
-        <div class="d-flex justify-content-center py-3 px-5 w-100">
-            <button class="server-button" type="button">
-                server 1
-            </button>
 
-            <button class="server-button" type="button">
-                server 2
-            </button>
+    <div class="container-fluid d-flex justify-content-center align-items-center">
+        <div class="stream-content text-center">
+            <h1 class="py-5">Gladiator II</h1>
+            <!-- https://www.w3schools.com/tags/tag_video.asp -->
+            <video id="video-player" controls>
+                <source src="/torrent_id?magnet=<%= magnet %>">
 
-            <button class="server-button" type="button">
-                server 3
-            </button>
+                <!-- Subtitles -->
+                Your browser does not support the video tag
+            </video>
 
-            <button class="server-button" type="button">
-                server 4
-            </button>
+            <div class="d-flex justify-content-center py-3 px-5 w-100">
+                <button class="server-button" type="button">
+                    server 1
+                </button>
+
+                <button class="server-button" type="button">
+                    server 2
+                </button>
+
+                <button class="server-button" type="button">
+                    server 3
+                </button>
+
+                <button class="server-button" type="button">
+                    server 4
+                </button>
+            </div>
         </div>
     </div>
+
+
 </div>
 
 

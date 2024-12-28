@@ -190,14 +190,56 @@ video {
 
 /* movie.ejs */
 .capsule {
-    background-color: red;
+    background-color: rgba(36, 36, 36, 0.613);
+    background-image: url('/imgs/waves.webp');
+}
+
+.blur-overlay {
+    background-color: rgba(129, 129, 129, 0.517);
+    backdrop-filter: blur(20px); /* Apply blur effect */
+    display: flex;
 }
 
 .desc-img {
-    padding: 20% 20% 20% 20%;
-    background-color: blue;
+    padding: 7% 40% 5% 10%;
 }
 
+.desc {
+    padding: 0 10% 0 10%;
+    margin-right: 5%;
+    background-color: rgba(129, 129, 129, 0.517);
+    backdrop-filter: blur(10px); /* Apply blur effect */
+}
+
+#rating {
+    padding: 2px;
+    border: 1px solid black;
+    color: black;
+    width: 30px;
+    height: 30px;
+}
+
+.desc-btn {
+    background: none;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+
+.description {
+    padding-bottom: 10%;
+}
+
+.img-thumbnail-main {
+    border-radius: 0 5% 5% 5%;
+    width: 260px;
+    height: 390px;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    background-color: black;
+}
 
 
 
