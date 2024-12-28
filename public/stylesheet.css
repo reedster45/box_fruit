@@ -196,7 +196,7 @@ video {
 
 .blur-overlay {
     background-color: rgba(129, 129, 129, 0.517);
-    backdrop-filter: blur(20px); /* Apply blur effect */
+    backdrop-filter: blur(25px); /* Apply blur effect */
     display: flex;
 }
 
@@ -205,10 +205,9 @@ video {
 }
 
 .desc {
-    padding: 0 10% 0 10%;
-    margin-right: 5%;
+    width: 40%;
+    margin-right: 2%;
     background-color: rgba(129, 129, 129, 0.517);
-    backdrop-filter: blur(10px); /* Apply blur effect */
 }
 
 #rating {
