@@ -9,11 +9,10 @@
 
             <div class="container-fluid">
                 <div class="d-flex desc-img">
-                    <img src="<%= imageBaseUrl %>/w500<%= tvshow.poster_path %>" alt="<%= tvshow.title %>" class="img-thumbnail-main">
+                    <div><img src="<%= imageBaseUrl %>/w500<%= tvshow.poster_path %>" alt="<%= tvshow.title %>" class="img-thumbnail-main"></div>
                     <div class="ms-5">
-                        <h1 class="desc-title"><%= tvshow.name %></h1>
+                        <div><h1 class="desc-title"><%= tvshow.name %></h1></div>
                         <div id="rating" class="my-2 text-center"><%= tvshow.content_rating || 'N/A' %></div>
-                        <div class="desc-btn px-5 py-3" type="submit"><i class="bi bi-play-fill px-1"></i>Select an Episode</div>
                     </div>
                 </div>
 
@@ -35,10 +34,10 @@
                         <p>No director information available.</p>
                       <% } %>
                     
-                    <p class="desc-info">Genres: <%= tvshow.genres.map(genre => genre.name).join(', ') %></p>
-                    <p class="desc-info">Air Date: <%= tvshow.first_air_date %></p>
-                    <p class="desc-info">Cast: <%= cast.slice(0, 6).map(actor => actor.name).join(', ') %></p>
-                    <p class="desc-info">trailer/favorite button</p>
+                    <p class="desc-info"><strong>Genres:</strong> <%= tvshow.genres.map(genre => genre.name).join(', ') %></p>
+                    <p class="desc-info"><strong>Air Date:</strong> <%= tvshow.first_air_date %></p>
+                    <p class="desc-info"><strong>Cast:</strong> <%= cast.slice(0, 6).map(actor => actor.name).join(', ') %></p>
+                    <p class="desc-info"><strong><i class="bi bi-star"></i><i class="bi bi-star-fill"></i></strong></p>
                 </div>
             </div>
         </div>

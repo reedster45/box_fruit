@@ -8,9 +8,9 @@
 
             <div class="container-fluid">
                 <div class="d-flex desc-img">
-                    <img src="<%= imageBaseUrl %>/w500<%= movie.poster_path %>" alt="<%= movie.title %>" class="img-thumbnail-main">
+                    <div><img src="<%= imageBaseUrl %>/w500<%= movie.poster_path %>" alt="<%= movie.title %>" class="img-thumbnail-main"></div>
                     <div class="ms-5">
-                        <h1 class="desc-title"><%= movie.title %></h1>
+                        <div><h1 class="desc-title"><%= movie.title %></h1></div>
                         <div id="rating" class="my-2 text-center"><%= ageRating %></div>
                         <form action="/streammovie/<%= movie.id %>" method="get">
                             <button class="desc-btn px-5 py-3" type="submit"><i class="bi bi-play-fill px-1"></i>Watch Now</button>
@@ -27,12 +27,12 @@
 
             <div class="desc d-flex align-items-center">
                 <div class="ps-5">
-                    <p class="desc-info">Rating: <%= movie.vote_average %></p>
-                    <p class="desc-info">Director: <%= director.name %></p>
-                    <p class="desc-info">Genres: <%= movie.genres.map(genre => genre.name).join(', ') %></p>
-                    <p class="desc-info">Release Date: <%= movie.release_date %></p>
-                    <p class="desc-info">Cast: <%= cast.slice(0, 6).map(actor => actor.name).join(', ') %></p>
-                    <p class="desc-info">trailer/favorite button</p>
+                    <p class="desc-info"><strong>Rating:</strong> <%= movie.vote_average %></p>
+                    <p class="desc-info"><strong>Director:</strong> <%= director.name %></p>
+                    <p class="desc-info"><strong>Genres:</strong> <%= movie.genres.map(genre => genre.name).join(', ') %></p>
+                    <p class="desc-info"><strong>Release Date:</strong> <%= movie.release_date %></p>
+                    <p class="desc-info"><strong>Cast:</strong> <%= cast.slice(0, 6).map(actor => actor.name).join(', ') %></p>
+                    <p class="desc-info"><strong><i class="bi bi-star"></i><i class="bi bi-star-fill"></i></strong></p>
                 </div>
             </div>
         </div>

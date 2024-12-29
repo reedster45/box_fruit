@@ -196,7 +196,7 @@ video {
 }
 
 .desc-img {
-    padding: 7% 40% 5% 10%;
+    padding: 7% 0 5% 10%;
 }
 
 .desc {
@@ -206,11 +206,11 @@ video {
 }
 
 #rating {
-    padding: 2px;
+    font-size: xx-small;
+    width: 30px;
+    height: 15px;
     border: 1px solid black;
     color: black;
-    width: 30px;
-    height: 30px;
 }
 
 .desc-btn {
