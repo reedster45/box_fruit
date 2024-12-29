@@ -37,7 +37,7 @@
         <div class="scroll-container" id="scroll-containerUS">
             <div class="thumbnails">
                 <% new_tv.forEach(movie => { %>
-                    <a href="/tvshow/<%= movie.id %>">
+                    <a href="/tvshow/<%= movie.id %>/season/1">
                         <img src="<%= imageBaseUrl %>/w500<%= movie.poster_path %>" alt="<%= movie.title %>" class="img-thumbnail"/>
                     </a>
                 <% }); %>
@@ -74,7 +74,7 @@
         <div class="scroll-container" id="scroll-containerMS">
             <div class="thumbnails">
                 <% pop_tv.forEach(movie => { %>
-                    <a href="/tvshow/<%= movie.id %>">
+                    <a href="/tvshow/<%= movie.id %>/season/1">
                         <img src="<%= imageBaseUrl %>/w500<%= movie.poster_path %>" alt="<%= movie.title %>" class="img-thumbnail"/>
                     </a>
                 <% }); %>

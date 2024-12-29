@@ -157,33 +157,34 @@ app.get('/movie/:id', async (req, res) => {
 
 
 // TV Show Details Route
-app.get('/tvshow/:id', async (req, res) => {
-  const tvId = req.params.id;
+app.get('/tvshow/:id/season/:season_number', async (req, res) => {
+  const { id, season_number } = req.params;
 
   try {
     // Fetch TV Show details
-    const tvResponse = await axios.get(`${TMDB_BASE_URL}/tv/${tvId}`, { params: { api_key: TMDB_API_KEY }, });
+    const tvResponse = await axios.get(`${TMDB_BASE_URL}/tv/${id}`, { params: { api_key: TMDB_API_KEY }, });
 
-    // Get the first season's episodes (or any season, for example, season 1)
-    const seasonResponse = await axios.get(`${TMDB_BASE_URL}/tv/${tvId}/season/1`, { params: { api_key: TMDB_API_KEY }, });
+    // Fetch details for the selected season
+    const seasonResponse = await axios.get(`${TMDB_BASE_URL}/tv/${id}/season/${season_number}`, { params: { api_key: TMDB_API_KEY }, });
 
     // Fetch the TV Show's credits (cast and crew)
-    const creditsResponse = await axios.get(`${TMDB_BASE_URL}/tv/${tvId}/credits`, { params: { api_key: TMDB_API_KEY }, });
+    const creditsResponse = await axios.get(`${TMDB_BASE_URL}/tv/${id}/credits`, { params: { api_key: TMDB_API_KEY }, });
 
     // Get the cast and crew
     const cast = creditsResponse.data.cast;
     const crew = creditsResponse.data.crew;
 
     const tvshow = tvResponse.data;
-    const episodes = seasonResponse.data.episodes;
+    const season = seasonResponse.data;
 
     // Render TV show details page
     res.render('tv_show', {
       tvshow,
-      episodes,
       cast,
       crew,
+      season,
       imageBaseUrl: TMDB_IMAGE_BASE_URL,
+      availableSeasons: tvshow.seasons,
     });
 
   } catch (error) {
@@ -252,8 +253,13 @@ app.get('/streamtv/:tv_id/season/:season_number/episode/:episode_number', async 
 
     const tvshow = tvResponse.data;
 
+    // Fetch details for the selected season
+    const seasonResponse = await axios.get(`${TMDB_BASE_URL}/tv/${tv_id}/season/${season_number}`, { params: { api_key: TMDB_API_KEY }, });
+
+    const season = seasonResponse.data;
+
     // Render movie details page
-    res.render('streamtv', { episode, tvshow, imageBaseUrl: TMDB_IMAGE_BASE_URL, magnet: magnet_link, });
+    res.render('streamtv', { episode, tvshow, season, imageBaseUrl: TMDB_IMAGE_BASE_URL, magnet: magnet_link, availableSeasons: tvshow.seasons, });
 
   } catch (error) {
     console.error('Error fetching movie details:', error.message);
