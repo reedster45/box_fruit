@@ -189,14 +189,9 @@ video {
 
 
 /* movie.ejs */
-.capsule {
-    background-color: rgba(36, 36, 36, 0.613);
-    background-image: url('/imgs/waves.webp');
-}
-
 .blur-overlay {
-    background-color: rgba(129, 129, 129, 0.517);
-    backdrop-filter: blur(25px); /* Apply blur effect */
+    background-color: rgba(129, 129, 129, 0.388);
+    backdrop-filter: blur(15px); /* Apply blur effect */
     display: flex;
 }
 
@@ -207,7 +202,7 @@ video {
 .desc {
     width: 40%;
     margin-right: 2%;
-    background-color: rgba(129, 129, 129, 0.517);
+    background-color: rgba(129, 129, 129, 0.197);
 }
 
 #rating {
@@ -233,6 +228,17 @@ video {
     border-radius: 0 5% 5% 5%;
     width: 260px;
     height: 390px;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    background-color: black;
+}
+
+.cast-thumbnail {
+    border-radius: 0 5% 5% 5%;
+    width: 50px;
+    height: 50px;
     outline: none;
     border: none;
     box-shadow: none;

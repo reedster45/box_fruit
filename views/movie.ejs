@@ -3,25 +3,23 @@
 <div class="main-container">
 
 
-    <div class="d-flex capsule mt-5">
+    <div class="d-flex capsule mt-5" style="background-image: url('<%= backdropPath %>');">
         <div class="blur-overlay container-fluid">
 
             <div class="container-fluid">
                 <div class="d-flex desc-img">
-                    <img src="https://m.media-amazon.com/images/M/MV5BMWYzZTM5ZGQtOGE5My00NmM2LWFlMDEtMGNjYjdmOWM1MzA1XkEyXkFqcGc@._V1_.jpg" class="img-thumbnail-main" alt="Thumbnail">
+                    <img src="<%= imageBaseUrl %>/w500<%= movie.poster_path %>" alt="<%= movie.title %>" class="img-thumbnail-main">
                     <div class="ms-5">
-                        <h1 class="desc-title">Gladiator II</h1>
-                        <div id="rating" class="my-2 text-center">R</div>
-                        <form action="/stream" method="get">
+                        <h1 class="desc-title"><%= movie.title %></h1>
+                        <div id="rating" class="my-2 text-center"><%= ageRating %></div>
+                        <form action="/streammovie/<%= movie.id %>" method="get">
                             <button class="desc-btn px-5 py-3" type="submit"><i class="bi bi-play-fill px-1"></i>Watch Now</button>
                         </form>
                     </div>
                 </div>
 
                 <div class="description">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. In, ipsum asperiores totam voluptate 
-                    sed autem sint dicta qui, iste deserunt sequi saepe cum deleniti nobis explicabo architecto quo 
-                    reprehenderit. Omnis?
+                    <%= movie.overview %>
                 </div>
             </div>
 
@@ -29,14 +27,12 @@
 
             <div class="desc d-flex align-items-center">
                 <div class="ps-5">
-                    <p class="desc-info">Rating: 9.7</p>
-                    <p class="desc-info">Director: Joe Schmoe</p>
-                    <p class="desc-info">Writers: Hunter Biden, Linardskinard</p>
-                    <p class="desc-info">Actors: Jonathen</p>
-                    <p class="desc-info">Genres: Action, Adventure, Horror</p>
-                    <p class="desc-info">photos</p>
-                    <p class="desc-info">favorite button</p>
-                    <p class="desc-info">trailer</p>
+                    <p class="desc-info">Rating: <%= movie.vote_average %></p>
+                    <p class="desc-info">Director: <%= director.name %></p>
+                    <p class="desc-info">Genres: <%= movie.genres.map(genre => genre.name).join(', ') %></p>
+                    <p class="desc-info">Release Date: <%= movie.release_date %></p>
+                    <p class="desc-info">Cast: <%= cast.slice(0, 6).map(actor => actor.name).join(', ') %></p>
+                    <p class="desc-info">trailer/favorite button</p>
                 </div>
             </div>
         </div>

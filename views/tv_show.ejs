@@ -1,38 +1,64 @@
 <%- include('partials/header') %>
 
 
-<div class="main-container container">
+<div class="main-container">
 
 
-    <h1>TV Show Title</h1>
+    <div class="d-flex capsule mt-5" style="background-image: url('<%= imageBaseUrl %>/w1280<%= tvshow.backdrop_path %>');">
+        <div class="blur-overlay container-fluid">
 
-    <div class="d-flex">
-        <div>
-            <!-- found in img viewer then inspect on IMDB (find by ID) -->
-            <img src="https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTkxMWUtNzZkMDNiYjZhNmViXkEyXkFqcGc@._V1_FMjpg_UY659_.jpg" alt="Image description">
-        </div>
+            <div class="container-fluid">
+                <div class="d-flex desc-img">
+                    <img src="<%= imageBaseUrl %>/w500<%= tvshow.poster_path %>" alt="<%= tvshow.title %>" class="img-thumbnail-main">
+                    <div class="ms-5">
+                        <h1 class="desc-title"><%= tvshow.name %></h1>
+                        <div id="rating" class="my-2 text-center"><%= tvshow.content_rating || 'N/A' %></div>
+                        <div class="desc-btn px-5 py-3" type="submit"><i class="bi bi-play-fill px-1"></i>Select an Episode</div>
+                    </div>
+                </div>
 
-        <div>
-            Rating
-            Director
-            Writers
-            Actors
-            Genres
-            photos
-            favorite button
-            trailer
-            etc?
+                <div class="description">
+                    <%= tvshow.overview %>
+                </div>
+            </div>
+
+
+
+            <div class="desc d-flex align-items-center">
+                <div class="ps-5">
+                    <p class="desc-info">Rating: <%= tvshow.vote_average %></p>
+
+                    <% const director = crew.find(member => member.job === 'Director'); %>
+                    <% if (director) { %>
+                        <p class="desc-info">Director: <%= director.name %></p>
+                      <% } else { %>
+                        <p>No director information available.</p>
+                      <% } %>
+                    
+                    <p class="desc-info">Genres: <%= tvshow.genres.map(genre => genre.name).join(', ') %></p>
+                    <p class="desc-info">Air Date: <%= tvshow.first_air_date %></p>
+                    <p class="desc-info">Cast: <%= cast.slice(0, 6).map(actor => actor.name).join(', ') %></p>
+                    <p class="desc-info">trailer/favorite button</p>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 
 
 
-    <div>
-        <% for (let i = 0; i < 25; i++) { %>
-            <div class="episode" onclick="toStream()">Episode <%= i %></div>
-        <% } %>
-    </div>
-
+<!-- add season functionality & add styling -->
+<div class="episodes">
+    <h3>Episodes (Season 1):</h3>
+    <% episodes.forEach(episode => { %>
+      <a href="/streamtv/<%= tvshow.id %>/season/1/episode/<%= episode.episode_number %>">
+        <div class="episode">
+            <h4>Episode <%= episode.episode_number %>: <%= episode.name %></h4>
+            <p><strong>Air Date:</strong> <%= episode.air_date %></p>
+            <p><strong>Overview:</strong> <%= episode.overview %></p>
+        </div>
+      </a>
+    <% }); %>
 </div>
 
 <%- include('partials/footer') %>

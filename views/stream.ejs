@@ -6,9 +6,9 @@
 
     <div class="container-fluid d-flex justify-content-center align-items-center">
         <div class="stream-content text-center">
-            <h1 class="py-5">Gladiator II</h1>
+            <h1 class="py-5"><%= movie.title %></h1>
             <!-- https://www.w3schools.com/tags/tag_video.asp -->
-            <video id="video-player" controls>
+            <video id="video-player" poster="<%= backdropPath %>" controls>
                 <source src="/torrent_id?magnet=<%= magnet %>">
 
                 <!-- Subtitles -->

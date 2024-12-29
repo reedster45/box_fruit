@@ -93,6 +93,8 @@ initializeDatabase();
 
 
 // Routes for pages
+
+// homepage
 app.get('/', async (req, res) => {
   try {
     // Fetch popular movies
@@ -116,13 +118,80 @@ app.get('/', async (req, res) => {
   }
 });
 
-app.get('/movie', (req, res) => {
-  res.render('movie');
+
+// Movie Details Route
+app.get('/movie/:id', async (req, res) => {
+  const movieId = req.params.id; // Get the movie ID from the URL
+
+  try {
+    // Fetch detailed movie information
+    const response = await axios.get(`${TMDB_BASE_URL}/movie/${movieId}`, { params: { api_key: TMDB_API_KEY }, });
+    const creditsResponse = await axios.get(`${TMDB_BASE_URL}/movie/${movieId}/credits`, { params: { api_key: TMDB_API_KEY }, });
+    const releaseDatesResponse = await axios.get(`${TMDB_BASE_URL}/movie/${movieId}/release_dates`, { params: { api_key: TMDB_API_KEY }, });
+
+
+
+    const movie = response.data;
+    const cast = creditsResponse.data.cast;  // Actors
+    const crew = creditsResponse.data.crew;  // Crew (Directors, etc.)
+    const releaseDates = releaseDatesResponse.data.results;
+
+    // Get the age rating from the release dates (example for US)
+    const usRelease = releaseDates.find(release => release.iso_3166_1 === 'US');
+    const ageRating = usRelease ? usRelease.release_dates[0].certification : 'N/A';
+
+    // Find the director (the first person in the crew with 'Director' role)
+    const director = crew.find(person => person.job === 'Director');
+
+    // Find the backdrop image if available
+    const backdropPath = movie.backdrop_path ? `${TMDB_IMAGE_BASE_URL}/w1280${movie.backdrop_path}` : null;
+
+    // Render movie details page
+    res.render('movie', { movie, cast, director, backdropPath, ageRating, imageBaseUrl: TMDB_IMAGE_BASE_URL, });
+
+  } catch (error) {
+    console.error('Error fetching movie details:', error.message);
+    res.status(500).send('Error fetching movie details');
+  }
 });
 
-app.get('/tvshow', (req, res) => {
-  res.render('tv_show');
+
+// TV Show Details Route
+app.get('/tvshow/:id', async (req, res) => {
+  const tvId = req.params.id;
+
+  try {
+    // Fetch TV Show details
+    const tvResponse = await axios.get(`${TMDB_BASE_URL}/tv/${tvId}`, { params: { api_key: TMDB_API_KEY }, });
+
+    // Get the first season's episodes (or any season, for example, season 1)
+    const seasonResponse = await axios.get(`${TMDB_BASE_URL}/tv/${tvId}/season/1`, { params: { api_key: TMDB_API_KEY }, });
+
+    // Fetch the TV Show's credits (cast and crew)
+    const creditsResponse = await axios.get(`${TMDB_BASE_URL}/tv/${tvId}/credits`, { params: { api_key: TMDB_API_KEY }, });
+
+    // Get the cast and crew
+    const cast = creditsResponse.data.cast;
+    const crew = creditsResponse.data.crew;
+
+    const tvshow = tvResponse.data;
+    const episodes = seasonResponse.data.episodes;
+
+    // Render TV show details page
+    res.render('tv_show', {
+      tvshow,
+      episodes,
+      cast,
+      crew,
+      imageBaseUrl: TMDB_IMAGE_BASE_URL,
+    });
+
+  } catch (error) {
+    console.error('Error fetching TV show details:', error.message);
+    res.status(500).send('Error fetching TV show details');
+  }
 });
+
 
 app.get('/browse', (req, res) => {
   res.render('browse');
@@ -138,10 +207,58 @@ app.get('/favs', (req, res) => {
 
 
 
+
+
 // page for streaming media
-app.get('/stream', (req, res) => {
+// Movie Details Route
+app.get('/streammovie/:id', async (req, res) => {
   const magnet_link = encodeURIComponent("magnet:?xt=urn:btih:B26C545F17BCFCF0303A653E6F08318C39A373DD&dn=Gladiator%20II%202024%201080p%20TELESYNC%20x264%20AC3-AOC&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Ftracker.bittor.pw%3A1337%2Fannounce&tr=udp%3A%2F%2Fpublic.popcorn-tracker.org%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.dler.org%3A6969%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce");
-  res.render('stream', { magnet: magnet_link });
+  const streamId = req.params.id; // Get the movie ID from the URL
+
+  try {
+    // Fetch detailed movie information
+    const response = await axios.get(`${TMDB_BASE_URL}/movie/${streamId}`, { params: { api_key: TMDB_API_KEY }, });
+
+    const movie = response.data;
+
+    // Find the backdrop image if available
+    const backdropPath = movie.backdrop_path ? `${TMDB_IMAGE_BASE_URL}/w1280${movie.backdrop_path}` : null;
+
+    // Render movie details page
+    res.render('stream', { movie, backdropPath, imageBaseUrl: TMDB_IMAGE_BASE_URL, magnet: magnet_link, });
+
+  } catch (error) {
+    console.error('Error fetching movie details:', error.message);
+    res.status(500).send('Error fetching movie details');
+  }
+});
+
+app.get('/streamtv/:tv_id/season/:season_number/episode/:episode_number', async (req, res) => {
+  const magnet_link = encodeURIComponent("magnet:?xt=urn:btih:B26C545F17BCFCF0303A653E6F08318C39A373DD&dn=Gladiator%20II%202024%201080p%20TELESYNC%20x264%20AC3-AOC&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Ftracker.bittor.pw%3A1337%2Fannounce&tr=udp%3A%2F%2Fpublic.popcorn-tracker.org%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.dler.org%3A6969%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce");
+  const { tv_id, season_number, episode_number } = req.params;
+
+  try {
+    // Fetch the episode details
+    const episodeResponse = await axios.get(`${TMDB_BASE_URL}/tv/${tv_id}/season/${season_number}/episode/${episode_number}`, {
+      params: { api_key: TMDB_API_KEY },
+    });
+
+    const episode = episodeResponse.data;
+
+    // Fetch the TV show details for the header (optional)
+    const tvResponse = await axios.get(`${TMDB_BASE_URL}/tv/${tv_id}`, {
+      params: { api_key: TMDB_API_KEY },
+    });
+
+    const tvshow = tvResponse.data;
+
+    // Render movie details page
+    res.render('streamtv', { episode, tvshow, imageBaseUrl: TMDB_IMAGE_BASE_URL, magnet: magnet_link, });
+
+  } catch (error) {
+    console.error('Error fetching movie details:', error.message);
+    res.status(500).send('Error fetching movie details');
+  }
 });
 
 app.get('/torrent_id', (req, res) => {
