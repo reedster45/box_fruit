@@ -7,6 +7,10 @@ import WebTorrent from 'webtorrent';
 import path from 'path';
 import bodyParser from 'body-parser'
 import sqlite3 from 'sqlite3';
+import axios from 'axios';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 
 const app = express();
@@ -17,6 +21,17 @@ const port = 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// setup WebTorrent client & handle errors
+const client = new WebTorrent();
+
+// TMDb Base URL and API Key
+const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
+const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p';
+const TMDB_API_KEY = process.env.TMDB_API_KEY;
+
+
+
+
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -26,6 +41,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware
 app.use(bodyParser.json());
+
+
 
 
 
@@ -63,17 +80,11 @@ function initializeDatabase() {
 // init database - should I leave it here?
 initializeDatabase();
 
-// setup WebTorrent client & handle errors
-const client = new WebTorrent();
 
 
 
 
 
-let imgs = ['https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTkxMWUtNzZkMDNiYjZhNmViXkEyXkFqcGc@._V1_FMjpg_UY659_.jpg',
-  'https://m.media-amazon.com/images/M/MV5BMDcxOGEwNTktZTA0Yi00ZTFlLTkxNTItM2M2MmY0YTI2MTBhXkEyXkFqcGc@._V1_.jpg',
-  'https://m.media-amazon.com/images/M/MV5BYTYzMTlmNDctNmVkNS00YzRlLWE5MjAtODdjZWRkYzRlNWVlXkEyXkFqcGc@._V1_.jpg'
-];
 
 
 
@@ -82,8 +93,27 @@ let imgs = ['https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTk
 
 
 // Routes for pages
-app.get('/', (req, res) => {
-  res.render('home');
+app.get('/', async (req, res) => {
+  try {
+    // Fetch popular movies
+    const res1 = await axios.get(`${TMDB_BASE_URL}/movie/now_playing`, {params: { api_key: TMDB_API_KEY }, });
+    const res2 = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {params: { api_key: TMDB_API_KEY }, });
+    const res3 = await axios.get(`${TMDB_BASE_URL}/tv/airing_today`, {params: { api_key: TMDB_API_KEY }, });
+    const res4 = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {params: { api_key: TMDB_API_KEY }, });
+
+    // Get the first movie
+    const new_movies = res1.data.results;
+    const pop_movies = res2.data.results;
+    const new_tv = res3.data.results;
+    const pop_tv = res4.data.results;
+
+    // Render the page with the movie
+    res.render('home', {new_movies, pop_movies, new_tv, pop_tv, imageBaseUrl: TMDB_IMAGE_BASE_URL, });
+
+  } catch (error) {
+    console.error('Error fetching movie:', error.message);
+    res.status(500).send('Error fetching movie');
+  }
 });
 
 app.get('/movie', (req, res) => {
