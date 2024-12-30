@@ -90,7 +90,6 @@ body.sidebar-open .container {
 
 .main-container {
     padding-top: 5%;
-    margin-bottom: 5%;
     min-height: 100vh;
 }
 
@@ -244,6 +243,17 @@ video {
     box-shadow: none;
     padding: 0;
     background-color: black;
+}
+
+.trailer {
+    padding: 10px 0 10px 0;
+    bottom: 0;
+    width: 80%;
+    height: 60%;
+}
+
+.desc-size {
+    width: 100%;
 }
 
 

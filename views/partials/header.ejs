@@ -49,12 +49,12 @@
 
       <!-- Left side: Home button and Search bar -->
       <a class="navbar-brand px-2" href="/">Box Fruit</a>
-      <form class="d-flex ms-3 kill-borders" id="search-bar" role="search">
+      <form class="d-flex ms-3 kill-borders" id="search-bar" role="search" method="GET" action="/searchmovie">
         <div class="input-group">
           <button class="btn" type="sumbit" id="search-bth">
             <i class="bi bi-search" id="search-icon"></i>
           </button>
-          <input class="form-control me-2 kill-borders" id="search" type="search" aria-label="Search">
+          <input type="text" name="query" class="form-control me-2 kill-borders" id="search" type="search" aria-label="Search">
         </div>
       </form>
 

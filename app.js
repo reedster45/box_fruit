@@ -129,6 +129,8 @@ app.get('/movie/:id', async (req, res) => {
     const creditsResponse = await axios.get(`${TMDB_BASE_URL}/movie/${movieId}/credits`, { params: { api_key: TMDB_API_KEY }, });
     const releaseDatesResponse = await axios.get(`${TMDB_BASE_URL}/movie/${movieId}/release_dates`, { params: { api_key: TMDB_API_KEY }, });
 
+    const trailerResponse = await axios.get(`${TMDB_BASE_URL}/movie/${movieId}/videos`, {params: {api_key : TMDB_API_KEY }, });
+    const trailer = trailerResponse.data.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
 
 
     const movie = response.data;
@@ -147,7 +149,7 @@ app.get('/movie/:id', async (req, res) => {
     const backdropPath = movie.backdrop_path ? `${TMDB_IMAGE_BASE_URL}/w1280${movie.backdrop_path}` : null;
 
     // Render movie details page
-    res.render('movie', { movie, cast, director, backdropPath, ageRating, imageBaseUrl: TMDB_IMAGE_BASE_URL, });
+    res.render('movie', { movie, cast, director, backdropPath, ageRating, trailer, imageBaseUrl: TMDB_IMAGE_BASE_URL, });
 
   } catch (error) {
     console.error('Error fetching movie details:', error.message);
@@ -161,14 +163,12 @@ app.get('/tvshow/:id/season/:season_number', async (req, res) => {
   const { id, season_number } = req.params;
 
   try {
-    // Fetch TV Show details
     const tvResponse = await axios.get(`${TMDB_BASE_URL}/tv/${id}`, { params: { api_key: TMDB_API_KEY }, });
-
-    // Fetch details for the selected season
     const seasonResponse = await axios.get(`${TMDB_BASE_URL}/tv/${id}/season/${season_number}`, { params: { api_key: TMDB_API_KEY }, });
-
-    // Fetch the TV Show's credits (cast and crew)
     const creditsResponse = await axios.get(`${TMDB_BASE_URL}/tv/${id}/credits`, { params: { api_key: TMDB_API_KEY }, });
+
+    const trailerResponse = await axios.get(`${TMDB_BASE_URL}/tv/${id}/videos`, {params: {api_key : TMDB_API_KEY }, });
+    const trailer = trailerResponse.data.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
 
     // Get the cast and crew
     const cast = creditsResponse.data.cast;
@@ -183,6 +183,7 @@ app.get('/tvshow/:id/season/:season_number', async (req, res) => {
       cast,
       crew,
       season,
+      trailer,
       imageBaseUrl: TMDB_IMAGE_BASE_URL,
       availableSeasons: tvshow.seasons,
     });
@@ -199,16 +200,28 @@ app.get('/browsemovie', async (req, res) => {
     // Pagination parameters (defaults to page 1 if no query provided)
     const page = parseInt(req.query.page) || 1;
     const per_page = 36;
+    const query = req.query.query;
 
     // Fetch movies from TMDB API
-    const response = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
-      params: {
-        api_key: TMDB_API_KEY,
-        page: page,
-        language: 'en-US',
-        'per_page': per_page,
-      },
-    });
+    let response = [];
+    if (query) {
+      response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+        params: {
+          api_key: TMDB_API_KEY,
+          query: query,
+          page: page,
+          language: 'en-US',
+        },
+      });
+    } else {
+      response = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
+        params: {
+          api_key: TMDB_API_KEY,
+          page: page,
+          language: 'en-US',
+        },
+      });
+    }
 
     // Get the movie data and total pages
     const movies = response.data.results;
@@ -218,6 +231,7 @@ app.get('/browsemovie', async (req, res) => {
       movies,
       page,
       total_pages,
+      query,
       imageBaseUrl: TMDB_IMAGE_BASE_URL,
     });
 
@@ -233,16 +247,28 @@ app.get('/browsetv', async (req, res) => {
     // Pagination parameters (defaults to page 1 if no query provided)
     const page = parseInt(req.query.page) || 1;
     const per_page = 36;
+    const query = req.query.query;
 
     // Fetch movies from TMDB API
-    const response = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
-      params: {
-        api_key: TMDB_API_KEY,
-        page: page,
-        language: 'en-US',
-        'per_page': per_page,
-      },
-    });
+    let response = [];
+    if (query) {
+      response = await axios.get(`${TMDB_BASE_URL}/search/tv`, {
+        params: {
+          api_key: TMDB_API_KEY,
+          query: query,
+          page: page,
+          language: 'en-US',
+        },
+      });
+    } else {
+      response = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
+        params: {
+          api_key: TMDB_API_KEY,
+          page: page,
+          language: 'en-US',
+        },
+      });
+    }
 
     // Get the movie data and total pages
     const shows = response.data.results;
@@ -250,6 +276,41 @@ app.get('/browsetv', async (req, res) => {
 
     res.render('browse_tv', {
       shows,
+      page,
+      total_pages,
+      query,
+      imageBaseUrl: TMDB_IMAGE_BASE_URL,
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error fetching movies');
+  }
+});
+
+
+app.get('/searchmovie', async (req, res) => {
+  try {
+    const query = req.query.query;
+    const page = parseInt(req.query.page) || 1;  // Default to page 1
+
+    // Fetch movies from TMDB API
+    const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+      params: {
+        api_key: TMDB_API_KEY,
+        query: query,
+        page: page,
+        sort_by: 'popularity.desc',
+        language: 'en-US',
+      },
+    });
+
+    const movies = response.data.results;
+    const total_pages = response.data.total_pages;
+
+    res.render('browse_movies', {
+      movies,
+      query,
       page,
       total_pages,
       imageBaseUrl: TMDB_IMAGE_BASE_URL,
@@ -261,6 +322,38 @@ app.get('/browsetv', async (req, res) => {
   }
 });
 
+app.get('/searchtv', async (req, res) => {
+  try {
+    const query = req.query.query;
+    const page = parseInt(req.query.page) || 1;  // Default to page 1
+
+    // Fetch movies from TMDB API
+    const response = await axios.get(`${TMDB_BASE_URL}/search/tv`, {
+      params: {
+        api_key: TMDB_API_KEY,
+        query: query,
+        page: page,
+        sort_by: 'popularity.desc',
+        language: 'en-US',
+      },
+    });
+
+    const shows = response.data.results;
+    const total_pages = response.data.total_pages;
+
+    res.render('browse_tv', {
+      shows,
+      query,
+      page,
+      total_pages,
+      imageBaseUrl: TMDB_IMAGE_BASE_URL,
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error fetching shows');
+  }
+});
 
 
 app.get('/downloads', (req, res) => {

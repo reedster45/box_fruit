@@ -10,7 +10,7 @@
             <div class="container-fluid">
                 <div class="d-flex desc-img">
                     <div><img src="<%= imageBaseUrl %>/w500<%= tvshow.poster_path %>" alt="<%= tvshow.title %>" class="img-thumbnail-main"></div>
-                    <div class="ms-5">
+                    <div class="ms-5 desc-size">
                         <div><h1 class="desc-title"><%= tvshow.name %></h1></div>
                         <div id="rating" class="my-2 text-center"><%= tvshow.content_rating || 'N/A' %></div>
                     </div>
@@ -45,7 +45,12 @@
 </div>
 
 
-
+<% if (trailer) { %>
+  <% const trailer_url = `https://www.youtube.com/embed/${trailer.key}`; %>
+  <iframe class="embed-responsive-item trailer" src="<%= trailer_url %>" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<% } else { %>
+  <p>no trailer available.</p>
+<% } %>
 
 
 <!-- Display available seasons as links -->

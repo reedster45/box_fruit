@@ -7,14 +7,21 @@
         <div class="blur-overlay container-fluid">
 
             <div class="container-fluid">
-                <div class="d-flex desc-img">
+                <div class="d-flex container-fluid desc-img">
                     <div><img src="<%= imageBaseUrl %>/w500<%= movie.poster_path %>" alt="<%= movie.title %>" class="img-thumbnail-main"></div>
-                    <div class="ms-5">
+                    <div class="ms-5 desc-size">
                         <div><h1 class="desc-title"><%= movie.title %></h1></div>
                         <div id="rating" class="my-2 text-center"><%= ageRating %></div>
                         <form action="/streammovie/<%= movie.id %>" method="get">
-                            <button class="desc-btn px-5 py-3" type="submit"><i class="bi bi-play-fill px-1"></i>Watch Now</button>
+                            <button class="desc-btn px-5 py-2" type="submit"><i class="bi bi-play-fill px-1"></i>Watch Now</button>
                         </form>
+
+                        <% if (trailer) { %>
+                            <% const trailer_url = `https://www.youtube.com/embed/${trailer.key}`; %>
+                            <iframe class="embed-responsive-item trailer" src="<%= trailer_url %>" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <% } else { %>
+                            <p>no trailer available.</p>
+                        <% } %>
                     </div>
                 </div>
 
