@@ -48,37 +48,37 @@ app.use(bodyParser.json());
 
 
 
-// Open SQLite database (it will create the database file if it doesn't exist)
-const db = new sqlite3.Database(db_path, (err) => {
-  if (err) {
-    console.error('Error opening database:', err.message);
-  } else {
-    console.log('Connected to the SQLite database.');
-  }
-});
+// // Open SQLite database (it will create the database file if it doesn't exist)
+// const db = new sqlite3.Database(db_path, (err) => {
+//   if (err) {
+//     console.error('Error opening database:', err.message);
+//   } else {
+//     console.log('Connected to the SQLite database.');
+//   }
+// });
 
-// Function to initialize the database by executing the create_database.sql file
-function initializeDatabase() {
-  // Asynchronously read the SQL statements from the create_database.sql file
-  readFile('./src/create_database.sql', 'utf-8', (err, sql) => {
-    if (err) {
-      console.error('Error reading the SQL file:', err.message);
-      return;
-    }
+// // Function to initialize the database by executing the create_database.sql file
+// function initializeDatabase() {
+//   // Asynchronously read the SQL statements from the create_database.sql file
+//   readFile('./src/create_database.sql', 'utf-8', (err, sql) => {
+//     if (err) {
+//       console.error('Error reading the SQL file:', err.message);
+//       return;
+//     }
 
-    // Execute the SQL to create tables (if not already created)
-    db.exec(sql, (err) => {
-      if (err) {
-        console.error('Error executing SQL from file:', err.message);
-      } else {
-        console.log('Database tables checked/created from SQL file.');
-      }
-    });
-  });
-}
+//     // Execute the SQL to create tables (if not already created)
+//     db.exec(sql, (err) => {
+//       if (err) {
+//         console.error('Error executing SQL from file:', err.message);
+//       } else {
+//         console.log('Database tables checked/created from SQL file.');
+//       }
+//     });
+//   });
+// }
 
-// init database - should I leave it here?
-initializeDatabase();
+// // init database - should I leave it here?
+// initializeDatabase();
 
 
 
@@ -194,9 +194,43 @@ app.get('/tvshow/:id/season/:season_number', async (req, res) => {
 });
 
 
-app.get('/browse', (req, res) => {
-  res.render('browse');
+app.get('/browse', async (req, res) => {
+  try {
+    // Pagination parameters (defaults to page 1 if no query provided)
+    const page = parseInt(req.query.page) || 1;
+    const per_page = 36;
+
+    // Fetch movies from TMDB API
+    const response = await axios.get(`${TMDB_BASE_URL}/discover/movie`, {
+      params: {
+        api_key: TMDB_API_KEY,
+        page: page,
+        language: 'en-US',
+        sort_by: 'popularity.desc',
+        include_adult: false,
+        include_video: false,
+        'per_page': per_page,
+      },
+    });
+
+    // Get the movie data and total pages
+    const movies = response.data.results;
+    const total_pages = response.data.total_pages;
+
+    res.render('browse', {
+      movies,
+      page,
+      total_pages,
+      imageBaseUrl: TMDB_IMAGE_BASE_URL,
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error fetching movies');
+  }
 });
+
+
 
 app.get('/favs', (req, res) => {
   res.render('favorites');

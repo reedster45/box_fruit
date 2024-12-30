@@ -17,14 +17,38 @@
     <div class="d-flex justify-content-center align-items-center">
         <div class="container-fluid mt-3">
             <div class="row">
-                <% for (var j=0; j<36; j++) { %>
+                <% movies.forEach(movie => { %>
                     <div class="col-12 col-sm-6 col-md-3 col-xxl-2 mb-3">
-                        <img src="https://m.media-amazon.com/images/M/MV5BYTYzMTlmNDctNmVkNS00YzRlLWE5MjAtODdjZWRkYzRlNWVlXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 1" onclick="toMovie()">
+                        <a href="/movie/<%= movie.id %>">
+                            <img src="<%= imageBaseUrl %>/w500<%= movie.poster_path %>" alt="<%= movie.title %>" class="img-thumbnail">
+                        </a>
                     </div>
-                <% } %>
+                <% }); %>
             </div>
         </div>
     </div>
+
+    
+
+    <!-- Pagination with Forward/Backward Arrows and Page Input -->
+    <div class="d-flex justify-content-center align-items-center">
+        <!-- Previous Page Button -->
+        <a href="/browse?page=<%= page - 1 %>" class="btn btn-outline-primary <%= page === 1 ? 'disabled' : '' %>">
+          &laquo; Previous
+        </a>
+  
+        <!-- Page Number Input -->
+        <form class="mx-3" action="/browse" method="get">
+          <label for="page-input" class="visually-hidden">Page Number</label>
+          <input type="number" id="page-input" name="page" class="form-control" min="1" max="<%= total_pages %>" value="<%= page %>" />
+        </form>
+  
+        <!-- Next Page Button -->
+        <a href="/browse?page=<%= page + 1 %>" class="btn btn-outline-primary <%= page === total_pages ? 'disabled' : '' %>">
+          Next &raquo;
+        </a>
+    </div>
+
 
 </div>
 
