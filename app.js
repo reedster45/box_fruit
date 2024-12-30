@@ -194,21 +194,18 @@ app.get('/tvshow/:id/season/:season_number', async (req, res) => {
 });
 
 
-app.get('/browse', async (req, res) => {
+app.get('/browsemovie', async (req, res) => {
   try {
     // Pagination parameters (defaults to page 1 if no query provided)
     const page = parseInt(req.query.page) || 1;
     const per_page = 36;
 
     // Fetch movies from TMDB API
-    const response = await axios.get(`${TMDB_BASE_URL}/discover/movie`, {
+    const response = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
       params: {
         api_key: TMDB_API_KEY,
         page: page,
         language: 'en-US',
-        sort_by: 'popularity.desc',
-        include_adult: false,
-        include_video: false,
         'per_page': per_page,
       },
     });
@@ -217,7 +214,7 @@ app.get('/browse', async (req, res) => {
     const movies = response.data.results;
     const total_pages = response.data.total_pages;
 
-    res.render('browse', {
+    res.render('browse_movies', {
       movies,
       page,
       total_pages,
@@ -231,6 +228,44 @@ app.get('/browse', async (req, res) => {
 });
 
 
+app.get('/browsetv', async (req, res) => {
+  try {
+    // Pagination parameters (defaults to page 1 if no query provided)
+    const page = parseInt(req.query.page) || 1;
+    const per_page = 36;
+
+    // Fetch movies from TMDB API
+    const response = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
+      params: {
+        api_key: TMDB_API_KEY,
+        page: page,
+        language: 'en-US',
+        'per_page': per_page,
+      },
+    });
+
+    // Get the movie data and total pages
+    const shows = response.data.results;
+    const total_pages = response.data.total_pages;
+
+    res.render('browse_tv', {
+      shows,
+      page,
+      total_pages,
+      imageBaseUrl: TMDB_IMAGE_BASE_URL,
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error fetching movies');
+  }
+});
+
+
+
+app.get('/downloads', (req, res) => {
+  res.render('downloads');
+});
 
 app.get('/favs', (req, res) => {
   res.render('favorites');
@@ -260,7 +295,7 @@ app.get('/streammovie/:id', async (req, res) => {
     const backdropPath = movie.backdrop_path ? `${TMDB_IMAGE_BASE_URL}/w1280${movie.backdrop_path}` : null;
 
     // Render movie details page
-    res.render('stream', { movie, backdropPath, imageBaseUrl: TMDB_IMAGE_BASE_URL, magnet: magnet_link, });
+    res.render('streammovie', { movie, backdropPath, imageBaseUrl: TMDB_IMAGE_BASE_URL, magnet: magnet_link, });
 
   } catch (error) {
     console.error('Error fetching movie details:', error.message);

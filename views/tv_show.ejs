@@ -25,7 +25,7 @@
 
             <div class="desc d-flex align-items-center">
                 <div class="ps-5">
-                    <p class="desc-info">Rating: <%= tvshow.vote_average %></p>
+                    <p class="desc-info"><strong>Rating:</strong> <%= tvshow.vote_average %></p>
 
                     <% const director = crew.find(member => member.job === 'Director'); %>
                     <% if (director) { %>

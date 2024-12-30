@@ -1,0 +1,55 @@
+<%- include('partials/header') %>
+
+
+<div class="main-container container">
+
+    <div class="browse">
+        <h1 class="browse">Browse Shows</h1>  
+    </div>
+
+    <div class="input-group" id="search-btn">
+        <button class="btn" type="sumbit">
+        <i class="bi bi-search" id="search-icon"></i>
+        </button>
+        <input class="form-control me-2 kill-borders" id="search" type="search" aria-label="Search">
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="container-fluid mt-3">
+            <div class="row">
+                <% shows.forEach(show => { %>
+                    <div class="col-12 col-sm-6 col-md-3 col-xxl-2 mb-3">
+                        <a href="/tvshow/<%= show.id %>/season/1">
+                            <img src="<%= imageBaseUrl %>/w500<%= show.poster_path %>" alt="<%= show.name %>" class="img-thumbnail">
+                        </a>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- Pagination with Forward/Backward Arrows and Page Input -->
+    <div class="d-flex justify-content-center align-items-center">
+        <!-- Previous Page Button -->
+        <a href="/browsetv?page=<%= page - 1 %>" class="btn btn-outline-primary <%= page === 1 ? 'disabled' : '' %>">
+          &laquo; Previous
+        </a>
+  
+        <!-- Page Number Input -->
+        <form class="mx-3" action="/browsetv" method="get">
+          <label for="page-input" class="visually-hidden">Page Number</label>
+          <input type="number" id="page-input" name="page" class="form-control" min="1" max="<%= total_pages %>" value="<%= page %>" />
+        </form>
+  
+        <!-- Next Page Button -->
+        <a href="/browsetv?page=<%= page + 1 %>" class="btn btn-outline-primary <%= page === total_pages ? 'disabled' : '' %>">
+          Next &raquo;
+        </a>
+    </div>
+
+
+</div>
+
+<%- include('partials/footer') %>

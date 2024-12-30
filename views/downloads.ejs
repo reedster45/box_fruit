@@ -1,0 +1,23 @@
+<%- include('partials/header') %>
+
+
+<div class="main-container container">
+
+    <h1>Save favorite movies to watch later</h1>
+
+
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="container-fluid mt-3">
+            <div class="row">
+                <% for (var j=0; j<36; j++) { %>
+                    <div class="col-12 col-sm-6 col-md-3 col-xxl-2 mb-3">
+                        <img src="https://m.media-amazon.com/images/M/MV5BYTYzMTlmNDctNmVkNS00YzRlLWE5MjAtODdjZWRkYzRlNWVlXkEyXkFqcGc@._V1_.jpg" class="img-thumbnail" alt="Thumbnail 1" onclick="toMovie()">
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<%- include('partials/footer') %>

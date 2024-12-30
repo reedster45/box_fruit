@@ -4,7 +4,7 @@
 <div class="main-container container">
 
     <div class="browse">
-        <h1 class="browse">Browse Movies & Shows</h1>  
+        <h1 class="browse">Browse Movies</h1>  
     </div>
 
     <div class="input-group" id="search-btn">
@@ -33,18 +33,18 @@
     <!-- Pagination with Forward/Backward Arrows and Page Input -->
     <div class="d-flex justify-content-center align-items-center">
         <!-- Previous Page Button -->
-        <a href="/browse?page=<%= page - 1 %>" class="btn btn-outline-primary <%= page === 1 ? 'disabled' : '' %>">
+        <a href="/browsemovie?page=<%= page - 1 %>" class="btn btn-outline-primary <%= page === 1 ? 'disabled' : '' %>">
           &laquo; Previous
         </a>
   
         <!-- Page Number Input -->
-        <form class="mx-3" action="/browse" method="get">
+        <form class="mx-3" action="/browsemovie" method="get">
           <label for="page-input" class="visually-hidden">Page Number</label>
           <input type="number" id="page-input" name="page" class="form-control" min="1" max="<%= total_pages %>" value="<%= page %>" />
         </form>
   
         <!-- Next Page Button -->
-        <a href="/browse?page=<%= page + 1 %>" class="btn btn-outline-primary <%= page === total_pages ? 'disabled' : '' %>">
+        <a href="/browsemovie?page=<%= page + 1 %>" class="btn btn-outline-primary <%= page === total_pages ? 'disabled' : '' %>">
           Next &raquo;
         </a>
     </div>
