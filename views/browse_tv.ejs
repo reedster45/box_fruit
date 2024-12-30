@@ -24,7 +24,7 @@
         <div class="container-fluid mt-3">
             <div class="row">
                 <% shows.forEach(show => { %>
-                    <div class="col-12 col-sm-6 col-md-3 col-xxl-2 mb-3 desc-hover">
+                    <div class="col-12 col-sm-6 col-md-3 col-xxl-2 mb-3 desc-hover d-flex">
                         <a href="/tvshow/<%= show.id %>/season/1">
                             <img src="<%= imageBaseUrl %>/w500<%= show.poster_path %>" alt="<%= show.name %>" class="img-thumbnail">
                         </a>
