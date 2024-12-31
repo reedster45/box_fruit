@@ -17,7 +17,6 @@ const movieMatch = pathname.match(movieRegex);
 if (localStorage.getItem('sidebarOpen') === 'true' && (!tvshowMatch && !movieMatch)) {
   sidebar.classList.add('show');
   document.body.classList.add('sidebar-open');
-  console.log('sidebar open');
 }
 
 // Toggle the sidebar when the hamburger icon is clicked
@@ -38,7 +37,7 @@ const tvOption = document.getElementById('tv-option');
 const form = document.getElementById('search-bar');
 
 
-// Function to handle the selection logic
+// Function to handle search selection type
 function toggleMediaType(selectedOption) {
   movieOption.classList.remove('selected');
   tvOption.classList.remove('selected');
@@ -93,6 +92,55 @@ document.querySelectorAll('.desc-hover').forEach(thumbnail => {
 
 
 
+
+const sort_popularity = document.getElementById('sort-popularity');
+const sort_trending = document.getElementById('sort-trending');
+const sort_date = document.getElementById('sort-date');
+const sort_alpha = document.getElementById('sort-alpha');
+
+// Function to handle the filter selection logic
+function toggleFilter(selectedOption) {
+  sort_popularity.classList.remove('selected');
+  sort_trending.classList.remove('selected');
+  sort_date.classList.remove('selected');
+  sort_alpha.classList.remove('selected');
+
+  selectedOption.classList.add('selected');
+}
+
+// Add event listeners to the options
+sort_popularity.addEventListener('click', () => {
+  toggleFilter(sort_popularity);
+  localStorage.setItem('toggledFilter', 'popular');
+});
+
+sort_trending.addEventListener('click', () => {
+  toggleFilter(sort_trending);
+  localStorage.setItem('toggledFilter', 'trending');
+});
+
+sort_date.addEventListener('click', () => {
+  toggleFilter(sort_date);
+  localStorage.setItem('toggledFilter', 'date');
+});
+
+sort_alpha.addEventListener('click', () => {
+  toggleFilter(sort_alpha);
+  localStorage.setItem('toggledFilter', 'alpha');
+});
+
+// Set default selection to 'Movie'
+console.log(localStorage.getItem('toggledFilter'));
+
+if (localStorage.getItem('toggledFilter') == 'trending') {
+  toggleFilter(sort_trending);
+} else if (localStorage.getItem('toggledFilter') == 'date') {
+  toggleFilter(sort_date);
+} else if (localStorage.getItem('toggledFilter') == 'alpha') {
+  toggleFilter(sort_alpha);
+} else if (localStorage.getItem('toggledFilter') == 'popular') {
+  toggleFilter(sort_popularity);
+}
 
 
 

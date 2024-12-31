@@ -64,7 +64,7 @@ input[type="search"]::-webkit-search-cancel-button {
   }
   
   .toggle-option.selected {
-    background-color: #353535;
+    background-color: #494949;
     color: white;
   }
   
@@ -334,6 +334,44 @@ video {
 }
 
 
+
+
+
+/* browse styling */
+.filter-box {
+    display: flex;
+    font-size: xx-small;
+    width: 200px;
+    height: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  .filter-option {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    background-color: #222222;
+    color: #ffffff;
+    transition: background-color 0.3s;
+  }
+  
+  .filter-option.selected {
+    background-color: #494949;
+    color: white;
+  }
+  
+  .filter-option:hover {
+    background-color: #5b5b5b;
+  }
+
+  .no-underline {
+    text-decoration: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+  }
 
 
 

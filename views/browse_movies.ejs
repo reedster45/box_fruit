@@ -7,6 +7,13 @@
         <h1 class="browse">Browse Movies</h1>  
     </div>
 
+    <div id="media-type" class="filter-box text-center align-items-center my-auto">
+        <a href="/browsemovie?page=<%= page %>&query=<%= query %>&sort_by=popularity.desc" class="no-underline"><div id="sort-popularity" class="filter-option selected">popular</div></a>
+        <a href="/browsemovie?page=<%= page %>&query=<%= query %>&sort_by=vote_average.desc" class="no-underline"><div id="sort-trending" class="filter-option">trending</div></a>
+        <a href="/browsemovie?page=<%= page %>&query=<%= query %>&sort_by=primary_release_date.desc" class="no-underline"><div id="sort-date" class="filter-option">date</div></a>
+        <a href="/browsemovie?page=<%= page %>&query=<%= query %>&sort_by=title.desc" class="no-underline"><div id="sort-alpha" class="filter-option">alphabet</div></a>
+    </div>
+
     <div class="input-group" id="search-btn">
         <form class="d-flex ms-3 kill-borders" id="search-bar" role="search" method="GET" action="/searchmovie">
             <button class="btn" type="sumbit">
@@ -44,7 +51,7 @@
     <!-- Pagination with Forward/Backward Arrows and Page Input -->
     <div class="d-flex justify-content-center align-items-center mb-2">
         <!-- Previous Page Button -->
-        <a href="/browsemovie?page=<%= page - 1 %>&query=<%= query %>" class="btn browse-controls <%= page === 1 ? 'disabled' : '' %>">
+        <a href="/browsemovie?page=<%= page - 1 %>&query=<%= query %>&sort_by=<%= sort_by %>" class="btn browse-controls <%= page === 1 ? 'disabled' : '' %>">
           &laquo; Previous
         </a>
   
@@ -55,7 +62,7 @@
         </form>
   
         <!-- Next Page Button -->
-        <a href="/browsemovie?page=<%= page + 1 %>&query=<%= query %>" class="btn browse-controls <%= page === total_pages ? 'disabled' : '' %>">
+        <a href="/browsemovie?page=<%= page + 1 %>&query=<%= query %>&sort_by=<%= sort_by %>" class="btn browse-controls <%= page === total_pages ? 'disabled' : '' %>">
           Next &raquo;
         </a>
     </div>

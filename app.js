@@ -201,6 +201,11 @@ app.get('/browsemovie', async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const per_page = 36;
     const query = req.query.query;
+    let sort_by = req.query.sort_by;
+
+    if (!sort_by) {
+      sort_by = 'popularity.desc';
+    }
 
     // Fetch movies from TMDB API
     let response = [];
@@ -210,14 +215,16 @@ app.get('/browsemovie', async (req, res) => {
           api_key: TMDB_API_KEY,
           query: query,
           page: page,
+          sort_by: sort_by,
           language: 'en-US',
         },
       });
     } else {
-      response = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
+      response = await axios.get(`${TMDB_BASE_URL}/discover/movie`, {
         params: {
           api_key: TMDB_API_KEY,
           page: page,
+          sort_by: sort_by,
           language: 'en-US',
         },
       });
@@ -232,6 +239,7 @@ app.get('/browsemovie', async (req, res) => {
       page,
       total_pages,
       query,
+      sort_by,
       imageBaseUrl: TMDB_IMAGE_BASE_URL,
     });
 
@@ -248,6 +256,11 @@ app.get('/browsetv', async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const per_page = 36;
     const query = req.query.query;
+    let sort_by = req.query.sort_by;
+
+    if (!sort_by) {
+      sort_by = 'popularity.desc';
+    }
 
     // Fetch movies from TMDB API
     let response = [];
@@ -257,14 +270,16 @@ app.get('/browsetv', async (req, res) => {
           api_key: TMDB_API_KEY,
           query: query,
           page: page,
+          sort_by: sort_by,
           language: 'en-US',
         },
       });
     } else {
-      response = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
+      response = await axios.get(`${TMDB_BASE_URL}/discover/tv`, {
         params: {
           api_key: TMDB_API_KEY,
           page: page,
+          sort_by: sort_by,
           language: 'en-US',
         },
       });
@@ -279,6 +294,7 @@ app.get('/browsetv', async (req, res) => {
       page,
       total_pages,
       query,
+      sort_by,
       imageBaseUrl: TMDB_IMAGE_BASE_URL,
     });
 
