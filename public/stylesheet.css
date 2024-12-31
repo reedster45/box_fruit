@@ -267,7 +267,9 @@ video {
     max-height: 300px;
     padding: 5px;
     border-radius: 0 5% 5% 5%;
+    overflow-y: auto;
 }
+
 .desc-hover:hover .desc-hover-box {
     display: block;
 }

@@ -6,11 +6,18 @@ const sidebar = document.getElementById('sidebar');
 // document.getElementById('videoPlayer').volume = 1.0;
 
 
-// Check if the sidebar was open on a previous page visit (from localStorage)
-if (localStorage.getItem('sidebarOpen') === 'true') {
-    sidebar.classList.add('show');
-    document.body.classList.add('sidebar-open');
+// check if pathname match the pattern "/tvshow/:id/season/:season_number"
+const tvshowRegex = /^\/tvshow\/([^/]+)\/season\/([^/]+)$/;
+const movieRegex = /^\/movie\/([^/]+)$/;
+const pathname = window.location.pathname;
+const tvshowMatch = pathname.match(tvshowRegex);
+const movieMatch = pathname.match(movieRegex);
 
+// Check if the sidebar was open on a previous page visit (from localStorage) or close if on /movie or /tvshow
+if (localStorage.getItem('sidebarOpen') === 'true' && (!tvshowMatch && !movieMatch)) {
+  sidebar.classList.add('show');
+  document.body.classList.add('sidebar-open');
+  console.log('sidebar open');
 }
 
 // Toggle the sidebar when the hamburger icon is clicked
@@ -27,39 +34,39 @@ sidebarToggle.addEventListener('click', function () {
 
 
 
-// redirect to movie/show
-function toMovie() {
-  const param1 = 'value1';
-  const param2 = 'value2';
 
-  // Construct the URL with parameters
-  const url = '/movie';
 
-  // Redirect to the constructed URL
-  window.location.href = url;
-}
+document.querySelectorAll('.desc-hover').forEach(thumbnail => {
+  const hoverBox = thumbnail.querySelector('.desc-hover-box');
+  
+  // Check position when hovering over the thumbnail
+  thumbnail.addEventListener('mouseenter', function() {
+    const thumbnailRect = thumbnail.getBoundingClientRect();
+    const screenWidth = window.innerWidth;
 
-function toShow() {
-  const param1 = 'value1';
-  const param2 = 'value2';
+    // Check if the thumbnail's right edge is within 200px of the screen's right edge
+    if (screenWidth - thumbnailRect.right < 225) {
+      // Adjust the hover box position to the left side
+      hoverBox.style.marginLeft = `-${hoverBox.offsetWidth}px`; // Moves box to the left
+    } else {
+      // Default position: display box to the right
+      hoverBox.style.marginLeft = `200px`; // Position to the right
+    }
+  });
 
-  // Construct the URL with parameters
-  const url = '/tvshow';
+  // Reset the hover box position when leaving the hover area
+  thumbnail.addEventListener('mouseleave', function() {
+    hoverBox.style.marginLeft = ''; // Reset to default
+  });
+});
 
-  // Redirect to the constructed URL
-  window.location.href = url;
-}
 
-function toStream() {
-  const param1 = 'value1';
-  const param2 = 'value2';
 
-  // Construct the URL with parameters
-  const url = '/stream';
 
-  // Redirect to the constructed URL
-  window.location.href = url;
-}
+
+
+
+
 
 
 
