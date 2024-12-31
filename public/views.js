@@ -33,9 +33,40 @@ sidebarToggle.addEventListener('click', function () {
 
 
 
+const movieOption = document.getElementById('movie-option');
+const tvOption = document.getElementById('tv-option');
+const form = document.getElementById('search-bar');
+
+
+// Function to handle the selection logic
+function toggleMediaType(selectedOption) {
+  movieOption.classList.remove('selected');
+  tvOption.classList.remove('selected');
+  selectedOption.classList.add('selected');
+
+  if (selectedOption === movieOption) {
+    form.action = '/searchmovie';
+  } else if (selectedOption === tvOption) {
+    form.action = '/searchtv'; 
+  }
+}
+
+// Add event listeners to the options
+movieOption.addEventListener('click', () => toggleMediaType(movieOption));
+tvOption.addEventListener('click', () => toggleMediaType(tvOption));
+
+// Set default selection to 'Movie'
+toggleMediaType(movieOption);  
 
 
 
+
+
+
+
+
+
+// hover description beside thumbnails
 document.querySelectorAll('.desc-hover').forEach(thumbnail => {
   const hoverBox = thumbnail.querySelector('.desc-hover-box');
   

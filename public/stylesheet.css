@@ -43,6 +43,41 @@ input[type="search"]::-webkit-search-cancel-button {
     color: antiquewhite;
 }
 
+/* Style for the toggle box in search bar */
+.toggle-box {
+    display: flex;
+    font-size: xx-small;
+    width: 100px;
+    height: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  .toggle-option {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    background-color: #222222;
+    color: #ffffff;
+    transition: background-color 0.3s;
+  }
+  
+  .toggle-option.selected {
+    background-color: #353535;
+    color: white;
+  }
+  
+  .toggle-option:hover {
+    background-color: #5b5b5b;
+  }
+
+
+
+
+
+
+
 #settings {
     font-size: large;
     color: #495057;
