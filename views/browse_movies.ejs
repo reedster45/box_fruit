@@ -42,9 +42,9 @@
     
 
     <!-- Pagination with Forward/Backward Arrows and Page Input -->
-    <div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-center align-items-center mb-2">
         <!-- Previous Page Button -->
-        <a href="/browsemovie?page=<%= page - 1 %>&query=<%= query %>" class="btn btn-outline-primary <%= page === 1 ? 'disabled' : '' %>">
+        <a href="/browsemovie?page=<%= page - 1 %>&query=<%= query %>" class="btn browse-controls <%= page === 1 ? 'disabled' : '' %>">
           &laquo; Previous
         </a>
   
@@ -55,7 +55,7 @@
         </form>
   
         <!-- Next Page Button -->
-        <a href="/browsemovie?page=<%= page + 1 %>&query=<%= query %>" class="btn btn-outline-primary <%= page === total_pages ? 'disabled' : '' %>">
+        <a href="/browsemovie?page=<%= page + 1 %>&query=<%= query %>" class="btn browse-controls <%= page === total_pages ? 'disabled' : '' %>">
           Next &raquo;
         </a>
     </div>
