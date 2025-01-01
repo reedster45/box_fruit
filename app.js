@@ -29,6 +29,10 @@ const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p';
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
+// JACKETT Base URL and API key
+const JACKETT_URL = 'http://127.0.0.1:9117/api/v2.0/indexers/all/results';
+const JACKETT_KEY = process.env.JACKETT_KEY;
+
 
 
 
@@ -79,6 +83,8 @@ app.use(bodyParser.json());
 
 // // init database - should I leave it here?
 // initializeDatabase();
+
+// fetches top ten movie torrents from JACKETT API indexers
 
 
 
@@ -329,6 +335,7 @@ app.get('/searchmovie', async (req, res) => {
       query,
       page,
       total_pages,
+      sort_by: 'popularity.desc',
       imageBaseUrl: TMDB_IMAGE_BASE_URL,
     });
 
@@ -362,6 +369,7 @@ app.get('/searchtv', async (req, res) => {
       query,
       page,
       total_pages,
+      sort_by: 'popularity.desc',
       imageBaseUrl: TMDB_IMAGE_BASE_URL,
     });
 
@@ -391,8 +399,20 @@ app.get('/favs', (req, res) => {
 // page for streaming media
 // Movie Details Route
 app.get('/streammovie/:id', async (req, res) => {
-  const magnet_link = encodeURIComponent("magnet:?xt=urn:btih:B26C545F17BCFCF0303A653E6F08318C39A373DD&dn=Gladiator%20II%202024%201080p%20TELESYNC%20x264%20AC3-AOC&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Ftracker.bittor.pw%3A1337%2Fannounce&tr=udp%3A%2F%2Fpublic.popcorn-tracker.org%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.dler.org%3A6969%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce");
+  let magnet_link = req.query.link;
+  const magnet_links = await getTorrents(req.query.query, req.query.type);
   const streamId = req.params.id; // Get the movie ID from the URL
+
+  if(!magnet_link) {
+    if (magnet_links[0]) {
+      magnet_link = encodeURIComponent(magnet_links[0].magnetLink);
+    } else {
+      magnet_link = 'magnet:?xt=urn:btih:';
+    }
+  }
+
+  // console.log(magnet_links);
+  // console.log(`magnet link: ${magnet_link}`);
 
   try {
     // Fetch detailed movie information
@@ -404,7 +424,7 @@ app.get('/streammovie/:id', async (req, res) => {
     const backdropPath = movie.backdrop_path ? `${TMDB_IMAGE_BASE_URL}/w1280${movie.backdrop_path}` : null;
 
     // Render movie details page
-    res.render('streammovie', { movie, backdropPath, imageBaseUrl: TMDB_IMAGE_BASE_URL, magnet: magnet_link, });
+    res.render('streammovie', { movie, backdropPath, imageBaseUrl: TMDB_IMAGE_BASE_URL, magnet: magnet_link, magnet_links, });
 
   } catch (error) {
     console.error('Error fetching movie details:', error.message);
@@ -413,8 +433,21 @@ app.get('/streammovie/:id', async (req, res) => {
 });
 
 app.get('/streamtv/:tv_id/season/:season_number/episode/:episode_number', async (req, res) => {
-  const magnet_link = encodeURIComponent("magnet:?xt=urn:btih:B26C545F17BCFCF0303A653E6F08318C39A373DD&dn=Gladiator%20II%202024%201080p%20TELESYNC%20x264%20AC3-AOC&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Ftracker.bittor.pw%3A1337%2Fannounce&tr=udp%3A%2F%2Fpublic.popcorn-tracker.org%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.dler.org%3A6969%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce");
+  let magnet_link = req.query.link;
   const { tv_id, season_number, episode_number } = req.params;
+  const query = `${req.query.query} s${String(season_number).padStart(2, '0')}e${String(episode_number).padStart(2, '0')}`;
+  const magnet_links = await getTorrents(query, req.query.type);
+
+  if(!magnet_link) {
+    if (magnet_links[0]) {
+      magnet_link = encodeURIComponent(magnet_links[0].magnetLink);
+    } else {
+      magnet_link = 'magnet:?xt=urn:btih:';
+    }
+  }
+
+  // console.log(magnet_links);
+  // console.log(query);
 
   try {
     // Fetch the episode details
@@ -437,7 +470,7 @@ app.get('/streamtv/:tv_id/season/:season_number/episode/:episode_number', async 
     const season = seasonResponse.data;
 
     // Render movie details page
-    res.render('streamtv', { episode, tvshow, season, imageBaseUrl: TMDB_IMAGE_BASE_URL, magnet: magnet_link, availableSeasons: tvshow.seasons, });
+    res.render('streamtv', { episode, tvshow, season, imageBaseUrl: TMDB_IMAGE_BASE_URL, magnet: magnet_link, availableSeasons: tvshow.seasons, magnet_links, });
 
   } catch (error) {
     console.error('Error fetching movie details:', error.message);
@@ -474,14 +507,19 @@ app.get('/torrent_id', (req, res) => {
       console.log(file.name);
     });
   
-    // You can access files within the torrent
-    const file = torrent.files.find(file => file.name.endsWith('.mkv')); // Adjust based on the file type 
-  
-    if (!file) {
+
+    // get video file from torrent
+    const videoExtensions = ['.mp4', '.mkv', '.avi', '.mov', '.flv', '.wmv', '.webm', '.vob', '.mpg', '.mpeg', '.m4v', '.3gp', '.ts', '.m2ts', '.f4v', '.rm', '.rmvb', '.divx', '.ogv', '.asf', '.mxf', '.bik', '.drc', '.qt'];
+    const file = torrent.files.find(file => videoExtensions.some(ext => file.name.endsWith(ext)));
+    let filetype;
+    if (file) {
+      filetype = file.name.split('.').pop();
+      console.log(`File type: .${filetype}`);
+    } else {
       return res.status(404).send("No matching video file found.");
     }
   
-    res.setHeader('Content-Type', 'video/mkv');
+    res.setHeader('Content-Type', `video/${filetype}`);
   
     // Get the Range header
     const range = req.headers.range;
@@ -510,7 +548,7 @@ app.get('/torrent_id', (req, res) => {
         "Content-Range": `bytes ${start}-${end}/${fileSize}`,
         "Accept-Ranges": "bytes",
         "Content-Length": chunkSize,
-        "Content-Type": "video/mkv"
+        "Content-Type": `video/${filetype}`
       });
     }
   
@@ -559,6 +597,45 @@ function extractInfoHash(magnetLink) {
   const regex = /xt=urn:btih:([a-f0-9]{40})/i;
   const match = magnetLink.match(regex);
   return match ? match[1] : null;
+}
+
+async function getTorrents(query, type) {
+  let category;
+
+  if (type == 'movie') {
+    category = '2000,2010,2020'; // Movies category
+  } else if (type == 'tv') {
+    category = '5000,5020,5050' // TV category
+  }
+
+  try {
+      const response = await axios.get(JACKETT_URL, {
+          params: {
+              apikey: JACKETT_KEY,
+              Query: query,
+              Category: category
+          }
+      });
+
+
+      const results = response.data.Results
+          .filter(result => result.MagnetUri) // Keep only results with a magnet link
+          .sort((a, b) => (b.Seeders || 0) - (a.Seeders || 0)) // Sort by seeders in descending order
+          .slice(0, 10) // Keep the top 10 results
+          .map(result => ({
+              title: result.Title,
+              magnetLink: result.MagnetUri,
+              seeders: result.Seeders || 0,
+              leechers: result.Leechers || 0,
+              tracker: result.Tracker
+          }));
+
+      return results;
+      
+  } catch (error) {
+      console.error('Error fetching data from Jackett:', error.message);
+      return json({ error: 'Failed to fetch data from Jackett' });
+  }
 }
 
 

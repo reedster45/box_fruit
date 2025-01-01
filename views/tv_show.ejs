@@ -73,7 +73,7 @@
   <% season.episodes.forEach(episode => { %>
     <div class="episode">
       <h4>
-        <a href="/streamtv/<%= tvshow.id %>/season/<%= season.season_number %>/episode/<%= episode.episode_number %>">
+        <a href="/streamtv/<%= tvshow.id %>/season/<%= season.season_number %>/episode/<%= episode.episode_number %>?query=<%= encodeURIComponent(tvshow.name) %>&type=tv">
           Episode <%= episode.episode_number %>: <%= episode.name %>
         </a>
       </h4>

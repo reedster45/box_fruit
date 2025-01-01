@@ -12,9 +12,9 @@
                     <div class="ms-5 desc-size">
                         <div><h1 class="desc-title"><%= movie.title %></h1></div>
                         <div id="rating" class="my-2 text-center"><%= ageRating %></div>
-                        <form action="/streammovie/<%= movie.id %>" method="get">
+                        <a href="/streammovie/<%= movie.id %>?query=<%= encodeURIComponent(movie.title) %>&type=movie">
                             <button class="desc-btn px-5 py-2" type="submit"><i class="bi bi-play-fill px-1"></i>Watch Now</button>
-                        </form>
+                        </a>
 
                         <% if (trailer) { %>
                             <% const trailer_url = `https://www.youtube.com/embed/${trailer.key}`; %>

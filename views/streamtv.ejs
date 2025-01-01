@@ -17,21 +17,20 @@
             </video>
 
             <div class="d-flex justify-content-center py-3 px-5 w-100">
-                <button class="server-button" type="button">
-                    server 1
-                </button>
-
-                <button class="server-button" type="button">
-                    server 2
-                </button>
-
-                <button class="server-button" type="button">
-                    server 3
-                </button>
-
-                <button class="server-button" type="button">
-                    server 4
-                </button>
+                <% magnet_links.forEach(link => { %>
+                    <a href="/streamtv/<%= tvshow.id %>/season/<%= season.season_number %>/episode/<%= episode.episode_number %>?query=<%= encodeURIComponent(tvshow.name) %>&type=tv&link=<%= encodeURIComponent(link.magnetLink) %>" style="text-decoration: none;">
+                        <% if (magnet == encodeURIComponent(link.magnetLink) || magnet == link.magnetLink) { %>
+                            <div class="server-button" style="background-color: rgb(105, 105, 105);">
+                                <%= link.tracker %>
+                                <p style="color: rgb(0, 255, 0);"><%= link.seeders %></p>
+                            </div>                    
+                        <% } else { %>
+                            <div class="server-button">
+                                <%= link.tracker %>
+                            </div>
+                        <% } %>
+                    </a>
+                <% }); %>
             </div>
         </div>
     </div>
