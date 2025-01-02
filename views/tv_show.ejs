@@ -7,7 +7,7 @@
     <div class="d-flex capsule mt-5" style="background-image: url('<%= imageBaseUrl %>/w1280<%= tvshow.backdrop_path %>');">
         <div class="blur-overlay container-fluid">
 
-            <div class="container-fluid">
+            <div class="container-fluid desc-resize">
                 <div class="d-flex desc-img">
                     <div><img src="<%= imageBaseUrl %>/w500<%= tvshow.poster_path %>" alt="<%= tvshow.title %>" class="img-thumbnail-main"></div>
                     <div class="ms-5 desc-size">
@@ -54,10 +54,9 @@
 
 
 
-
-
-<!-- Display available seasons as links -->
-<div class="py-3">
+<div class="episode-list">
+  <!-- Display available seasons as links -->
+  <div class="py-3">
     <select onchange="window.location.href=this.value">
     <% availableSeasons.forEach(season => { %>
         <option value="/tvshow/<%= tvshow.id %>/season/<%= season.season_number %>">
@@ -65,10 +64,10 @@
         </option>
     <% }); %>
     </select>
-</div>
+  </div>
 
-<!-- Display selected season's episodes -->
-<div class="episodes">
+  <!-- Display selected season's episodes -->
+  <div class="episodes">
   <h3>Episodes (Season <%= season.season_number %>):</h3>
   <% season.episodes.forEach(episode => { %>
     <div class="episode">
@@ -81,6 +80,7 @@
       <p><strong>Overview:</strong> <%= episode.overview %></p>
     </div>
   <% }); %>
+  </div>
 </div>
 
 

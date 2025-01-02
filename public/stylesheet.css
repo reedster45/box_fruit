@@ -122,6 +122,16 @@ body.sidebar-open .container {
     width: calc(100% - 15%);
 }
 
+body.sidebar-open .desc-resize {
+    margin-left: 15%; /* Push the content to the right */
+    width: calc(100% - 15%);
+}
+
+body.sidebar-open .episode-list {
+    margin-left: 16%; /* Push the content to the right */
+    width: calc(100% - 15%);
+}
+
 
 .main-container {
     padding-top: 5%;

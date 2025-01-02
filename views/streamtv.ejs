@@ -36,34 +36,34 @@
     </div>
 
 
-</div>
 
-
-<!-- Display available seasons as links -->
-<div class="py-3">
-    <select onchange="window.location.href=this.value">
-    <% availableSeasons.forEach(season => { %>
-        <option value="/tvshow/<%= tvshow.id %>/season/<%= season.season_number %>">
-            <%= season.name %>
-        </option>
-    <% }); %>
-    </select>
-</div>
-
-<!-- Display selected season's episodes -->
-<div class="episodes">
-  <h3>Episodes (Season <%= season.season_number %>):</h3>
-  <% season.episodes.forEach(episode => { %>
-    <div class="episode">
-      <h4>
-        <a href="/streamtv/<%= tvshow.id %>/season/<%= season.season_number %>/episode/<%= episode.episode_number %>">
-          Episode <%= episode.episode_number %>: <%= episode.name %>
-        </a>
-      </h4>
-      <p><strong>Air Date:</strong> <%= episode.air_date %></p>
-      <p><strong>Overview:</strong> <%= episode.overview %></p>
+    <!-- Display available seasons as links -->
+    <div class="py-3">
+        <select onchange="window.location.href=this.value">
+        <% availableSeasons.forEach(season => { %>
+            <option value="/tvshow/<%= tvshow.id %>/season/<%= season.season_number %>">
+                <%= season.name %>
+            </option>
+        <% }); %>
+        </select>
     </div>
-  <% }); %>
+
+    <!-- Display selected season's episodes -->
+    <div class="episodes">
+    <h3>Episodes (Season <%= season.season_number %>):</h3>
+    <% season.episodes.forEach(episode => { %>
+        <div class="episode">
+        <h4>
+            <a href="/streamtv/<%= tvshow.id %>/season/<%= season.season_number %>/episode/<%= episode.episode_number %>">
+            Episode <%= episode.episode_number %>: <%= episode.name %>
+            </a>
+        </h4>
+        <p><strong>Air Date:</strong> <%= episode.air_date %></p>
+        <p><strong>Overview:</strong> <%= episode.overview %></p>
+        </div>
+    <% }); %>
+    </div>
+
 </div>
 
 
