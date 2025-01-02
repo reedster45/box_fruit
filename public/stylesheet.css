@@ -5,6 +5,7 @@
   }
 
 html, body {
+    font-family: "Jersey 15", serif;
     height: 100%;
     color: antiquewhite;
     background-color: #1d1d1d;
@@ -59,13 +60,13 @@ input[type="search"]::-webkit-search-cancel-button {
     padding: 10px;
     text-align: center;
     background-color: #222222;
-    color: #ffffff;
+    color: antiquewhite;
     transition: background-color 0.3s;
   }
   
   .toggle-option.selected {
     background-color: #494949;
-    color: white;
+    color: antiquewhite;
   }
   
   .toggle-option:hover {
@@ -76,7 +77,10 @@ input[type="search"]::-webkit-search-cancel-button {
 
 
 
-
+.nav {
+    margin-top: 20px;
+    font-size: 1.5rem;
+}
 
 #settings {
     font-size: large;
@@ -95,14 +99,14 @@ input[type="search"]::-webkit-search-cancel-button {
     width: 15%;
     height: 100%;
     background-color: #343a40;
-    color: white;
+    color: antiquewhite;
     transition: left 0.3s ease-in-out;
     padding-top: 5%;
     z-index: 900;
 }
 
 #sidebar .nav-link {
-color: white;
+color: antiquewhite;
 padding: 10px 15px;
 }
 
@@ -134,7 +138,7 @@ body.sidebar-open .episode-list {
 
 
 .main-container {
-    padding-top: 5%;
+    padding-top: 7%;
     min-height: 100vh;
 }
 
@@ -145,7 +149,7 @@ body.sidebar-open .episode-list {
 
 /* home.ejs */
 .home-headers {
-    margin: 50px 0 5px 0;
+    margin-bottom: 5px;
     padding-left: 10px;
 }
 
@@ -182,7 +186,7 @@ body.sidebar-open .episode-list {
 /* Arrows */
 .arrow {
     background-color: rgba(0, 0, 0, 0.5);
-    color: white;
+    color: antiquewhite;
     font-size: 24px;
     padding: 10px;
     cursor: pointer;
@@ -223,7 +227,7 @@ video {
     padding: 0 1% 0 1%;
     border-radius: 10%;
     background-color: #000;
-    color: white;
+    color: antiquewhite;
 }
 
 
@@ -266,6 +270,7 @@ video {
 
 .description {
     padding-bottom: 10%;
+    font-size: 1rem;
 }
 
 .img-thumbnail-main {
@@ -305,8 +310,8 @@ video {
     display: none;
     position: absolute;
     background-color: rgba(0, 0, 0, 0.75);
-    color: white;
-    font-size: small;
+    color: antiquewhite;
+    font-size: 1rem;
     z-index: 1000;
     max-width: 200px;
     max-height: 300px;
@@ -333,7 +338,7 @@ video {
 }
 
 .browse-controls {
-    color: white;
+    color: antiquewhite;
     background-color: none;
     border: none;
     background: none;
@@ -363,13 +368,13 @@ video {
     padding: 10px;
     text-align: center;
     background-color: #222222;
-    color: #ffffff;
+    color: antiquewhite;
     transition: background-color 0.3s;
   }
   
   .filter-option.selected {
     background-color: #494949;
-    color: white;
+    color: antiquewhite;
   }
   
   .filter-option:hover {
@@ -390,7 +395,7 @@ video {
 footer {
     width: 100%;
     background: #333;
-    color: white;
+    color: antiquewhite;
     text-align: center;
     padding: 0;
     margin: 0;
