@@ -149,7 +149,7 @@ body.sidebar-open .episode-list {
 
 /* home.ejs */
 .home-headers {
-    margin-bottom: 5px;
+    margin: 20px 0 3px 0;
     padding-left: 10px;
 }
 
