@@ -599,6 +599,28 @@ function extractInfoHash(magnetLink) {
   return match ? match[1] : null;
 }
 
+
+
+
+
+
+
+
+// idea for TV: (use title and IMDB id?)
+//    search for season first s0
+//    if there is a season
+//      search through for specific ep file
+//    if there is no season
+//      search for s01e01
+
+// OR
+
+// USE SONARR
+// add series (to specific folder)
+// query season/episode
+// get top ten results
+// remove series
+
 async function getTorrents(query, type) {
   let category;
 
