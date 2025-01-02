@@ -3,13 +3,14 @@
 const sidebarToggle = document.getElementById('sidebar-toggle');
 const sidebar = document.getElementById('sidebar');
 
-// document.getElementById('videoPlayer').volume = 1.0;
+
+const pathname = window.location.pathname;
+
 
 
 // check if pathname match the pattern "/tvshow/:id/season/:season_number"
 const tvshowRegex = /^\/tvshow\/([^/]+)\/season\/([^/]+)$/;
 const movieRegex = /^\/movie\/([^/]+)$/;
-const pathname = window.location.pathname;
 const tvshowMatch = pathname.match(tvshowRegex);
 const movieMatch = pathname.match(movieRegex);
 
@@ -97,6 +98,13 @@ const sort_popularity = document.getElementById('sort-popularity');
 const sort_trending = document.getElementById('sort-trending');
 const sort_date = document.getElementById('sort-date');
 const sort_alpha = document.getElementById('sort-alpha');
+
+const browsemovieMatch = pathname.match(/^\/browsemovie(\/|$)/);
+const browsetvMatch = pathname.match(/^\/browsetv(\/|$)/);
+console.log(pathname);
+if (!browsetvMatch && !browsemovieMatch) {
+  localStorage.setItem('toggledFilter', 'popular');
+}
 
 // Function to handle the filter selection logic
 function toggleFilter(selectedOption) {
