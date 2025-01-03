@@ -407,7 +407,7 @@ app.get('/streammovie/:id', async (req, res) => {
     if (magnet_links[0]) {
       magnet_link = encodeURIComponent(magnet_links[0].magnetLink);
     } else {
-      magnet_link = 'magnet:?xt=urn:btih:';
+      magnet_link = 'magnet:?xt=urn:btih:6A30BCACA0F4C822FC5A581F73A239DC353B3352&dn=Hammy%20El%20Hamster%20DVDRip%20Spanish%20Ac3%202008&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Ftracker.bittor.pw%3A1337%2Fannounce&tr=udp%3A%2F%2Fpublic.popcorn-tracker.org%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.dler.org%3A6969%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce';
     }
   }
 
@@ -442,7 +442,7 @@ app.get('/streamtv/:tv_id/season/:season_number/episode/:episode_number', async 
     if (magnet_links[0]) {
       magnet_link = encodeURIComponent(magnet_links[0].magnetLink);
     } else {
-      magnet_link = 'magnet:?xt=urn:btih:';
+      magnet_link = 'magnet:?xt=urn:btih:60F6F428525B7A70F499526798DED544398AF0C7&dn=2024%20FIM%20World%20Supercross%20Rd%202%20Australian%20GP%20Night%201%201080p%20x265.mkv&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Ftracker.bittor.pw%3A1337%2Fannounce&tr=udp%3A%2F%2Fpublic.popcorn-tracker.org%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.dler.org%3A6969%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce';
     }
   }
 
