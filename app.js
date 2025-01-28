@@ -415,7 +415,7 @@ function openBrowser() {
       console.error(`stderr: ${stderr}`);
       return;
     }
-    console.log(`stdout: ${stdout}`);
+    console.log("Launching Browser Window...");
   });
 }
 

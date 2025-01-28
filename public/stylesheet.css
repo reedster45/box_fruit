@@ -5,10 +5,16 @@
   }
 
 html, body {
-    font-family: "Jersey 15", serif;
+    font-family: "Fira Code", serif;
+
     height: 100%;
     color: antiquewhite;
     background-color: #1d1d1d;
+}
+
+h1, #plundertv {
+    font-family: "Jersey 15", serif;
+    color: antiquewhite;
 }
 
 

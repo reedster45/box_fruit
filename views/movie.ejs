@@ -35,7 +35,13 @@
             <div class="desc d-flex align-items-center">
                 <div class="ps-5">
                     <p class="desc-info"><strong>Rating:</strong> <%= movie.vote_average %></p>
-                    <p class="desc-info"><strong>Director:</strong> <%= director.name %></p>
+
+                    <% if (director) { %>
+                        <p class="desc-info"><strong>Director:</strong> <%= director.name %></p>
+                      <% } else { %>
+                        <p>No director information available.</p>
+                      <% } %>
+                    
                     <p class="desc-info"><strong>Genres:</strong> <%= movie.genres.map(genre => genre.name).join(', ') %></p>
                     <p class="desc-info"><strong>Release Date:</strong> <%= movie.release_date %></p>
                     <p class="desc-info"><strong>Cast:</strong> <%= cast.slice(0, 6).map(actor => actor.name).join(', ') %></p>
