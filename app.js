@@ -358,7 +358,7 @@ app.get('/streammovie/:id', async (req, res) => {
     const backdropPath = movie.backdrop_path ? `${TMDB_IMAGE_BASE_URL}/w1280${movie.backdrop_path}` : null;
 
     // Render movie details page
-    res.render('streammovie', { movie, backdropPath, imageBaseUrl: TMDB_IMAGE_BASE_URL, });
+    res.render('streammovie', { streamId, movie, backdropPath, imageBaseUrl: TMDB_IMAGE_BASE_URL, });
 
   } catch (error) {
     console.error('Error fetching movie details:', error.message);
@@ -383,7 +383,7 @@ app.get('/streamtv/:tv_id/season/:season_number/episode/:episode_number', async 
     const season = seasonResponse.data;
 
     // Render movie details page
-    res.render('streamtv', { episode, tvshow, season, imageBaseUrl: TMDB_IMAGE_BASE_URL, availableSeasons: tvshow.seasons, });
+    res.render('streamtv', { tv_id, episode, tvshow, season, imageBaseUrl: TMDB_IMAGE_BASE_URL, availableSeasons: tvshow.seasons, });
 
   } catch (error) {
     console.error('Error fetching movie details:', error.message);

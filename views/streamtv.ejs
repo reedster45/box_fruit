@@ -8,30 +8,9 @@
         <div class="stream-content text-center">
             <h1 class="py-5"><%= tvshow.name %></h1>
             <h1 class="py-5">Episode <%= episode.episode_number %>: <%= episode.name %></h1>
-            <!-- https://www.w3schools.com/tags/tag_video.asp -->
-            <video id="video-player" poster="<%= imageBaseUrl %>/w1280<%= tvshow.backdrop_path %>" controls>
-                <source src="/torrent_id?magnet=<%= magnet %>">
 
-                <!-- Subtitles -->
-                Your browser does not support the video tag
-            </video>
+            <iframe src="https://www.2embed.cc/embedtv/<%= tv_id %>&s=<%= season.season_number %>&e=<%= episode.episode_number %>" title="<%= tvshow.name %>"></iframe>
 
-            <div class="d-flex justify-content-center py-3 px-5 w-100">
-                <% magnet_links.forEach(link => { %>
-                    <a href="/streamtv/<%= tvshow.id %>/season/<%= season.season_number %>/episode/<%= episode.episode_number %>?query=<%= encodeURIComponent(tvshow.name) %>&type=tv&link=<%= encodeURIComponent(link.magnetLink) %>" style="text-decoration: none;">
-                        <% if (magnet == encodeURIComponent(link.magnetLink) || magnet == link.magnetLink) { %>
-                            <div class="server-button" style="background-color: rgb(105, 105, 105);">
-                                <%= link.tracker %>
-                                <p style="color: rgb(0, 255, 0);"><%= link.seeders %></p>
-                            </div>                    
-                        <% } else { %>
-                            <div class="server-button">
-                                <%= link.tracker %>
-                            </div>
-                        <% } %>
-                    </a>
-                <% }); %>
-            </div>
         </div>
     </div>
 
