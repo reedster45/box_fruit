@@ -7,6 +7,9 @@ const sidebar = document.getElementById('sidebar');
 const pathname = window.location.pathname;
 
 
+// if on tvshow and not the same as previous show = keep season number as 1 + reset local storage
+// store season # onChange
+// if on tvshow and same as previous = set correct season number
 
 // check if pathname match the pattern "/tvshow/:id/season/:season_number"
 const tvshowRegex = /^\/tvshow\/([^/]+)\/season\/([^/]+)$/;
