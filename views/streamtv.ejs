@@ -9,7 +9,7 @@
             <h1 class="py-3"><%= tvshow.name %></h1>
             <h1 class="pb-2">Episode <%= episode.episode_number %>: <%= episode.name %></h1>
 
-            <iframe src="https://www.2embed.cc/embedtv/<%= tv_id %>&s=<%= season.season_number %>&e=<%= episode.episode_number %>" title="<%= tvshow.name %>" width="900" height="500"></iframe>
+            <iframe class="stream-glow mt-5 mb-5" src="https://www.2embed.cc/embedtv/<%= tv_id %>&s=<%= season.season_number %>&e=<%= episode.episode_number %>" title="<%= tvshow.name %>" width="900" height="500"></iframe>
 
         </div>
     </div>

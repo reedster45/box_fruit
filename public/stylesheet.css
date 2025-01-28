@@ -5,7 +5,7 @@
   }
 
 html, body {
-    font-family: "Fira Code", serif;
+    font-family: "Jersey 20", serif;
 
     height: 100%;
     color: antiquewhite;
@@ -370,6 +370,7 @@ video {
   }
   
   .filter-option {
+    font-family: "Oswald", serif;
     flex: 1;
     padding: 10px;
     text-align: center;
@@ -399,6 +400,7 @@ video {
 
 /* footer */
 footer {
+    font-family: "Oswald", serif;
     width: 100%;
     background: #333;
     color: antiquewhite;
@@ -418,6 +420,11 @@ footer {
 
 
 
+
+
+.stream-glow {
+    box-shadow: rgba(177, 177, 177, 0.383) 0 0 40px 30px;
+}
 
 
 
