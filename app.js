@@ -1,6 +1,7 @@
 
 
 import { fileURLToPath } from 'url';
+import { exec } from 'child_process';
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser'
@@ -25,17 +26,6 @@ const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
 
 
-// import WebTorrent from 'webtorrent';
-
-// setup WebTorrent client & handle errors
-// const client = new WebTorrent();
-
-// JACKETT Base URL and API key
-// const JACKETT_URL = 'http://127.0.0.1:9117/api/v2.0/indexers/all/results';
-// const JACKETT_KEY = process.env.JACKETT_KEY;
-
-
-
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
@@ -46,10 +36,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware
 app.use(bodyParser.json());
-
-
-
-
 
 
 
@@ -410,8 +396,33 @@ app.get('/streamtv/:tv_id/season/:season_number/episode/:episode_number', async 
 
 
 
+
+
+
+// Function to open Firefox in full-screen mode
+function openBrowser() {
+  // start command based on OS
+  const command = process.platform === 'win32'
+    ? 'start firefox --kiosk http://localhost:3000'
+    : `firefox --kiosk http://localhost:${port}`;
+
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error opening browser: ${error}`);
+      return;
+    }
+    if (stderr) {
+      console.error(`stderr: ${stderr}`);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+  });
+}
+
+
 // listening on port 3000
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
+  openBrowser();
 });
 
