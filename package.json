@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "start": "concurrently \"node app.js\" \"electron .\""
+    "start": "node app.js",
+    "build": "npm install"
   },
   "keywords": [],
   "author": "",
