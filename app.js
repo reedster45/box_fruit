@@ -399,6 +399,12 @@ app.get('/streamtv/:tv_id/season/:season_number/episode/:episode_number', async 
 
 
 
+
+
+
+
+
+
 // Function to open Firefox in full-screen mode
 function openBrowser() {
   // start command based on OS
