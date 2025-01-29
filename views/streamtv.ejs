@@ -9,10 +9,25 @@
             <h1 class="py-3"><%= tvshow.name %></h1>
             <h1 class="pb-2">Episode <%= episode.episode_number %>: <%= episode.name %></h1>
 
-            <iframe class="stream-glow mt-5 mb-5" src="https://www.2embed.cc/embedtv/<%= tv_id %>&s=<%= season.season_number %>&e=<%= episode.episode_number %>" title="<%= tvshow.name %>" width="900" height="500" frameborder="0" scrolling="no" allowfullscreen></iframe>
-            <iframe src="https://2anime.xyz/embed/one-piece-episode-555" width="900" height="500" frameborder="0" scrolling="no" allowfullscreen></iframe>
+            <iframe class="stream-glow mt-5 mb-5" src="<%= curr_src %>" title="<%= tvshow.name %>" width="900" height="500" frameborder="0" scrolling="no" allowfullscreen></iframe>
 
         </div>
+    </div>
+
+    <div class="d-flex justify-content-center py-3 px-5 w-100">
+        <% sources.forEach((src, key) => { %>
+            <a href="/streamtv/<%= tvshow.id %>/season/<%= season.season_number %>/episode/<%= episode.episode_number %>?key=<%= key %>" style="text-decoration: none;">
+                <% if (key == curr_key) { %>
+                    <div class="server-button" style="background-color: rgb(105, 105, 105);">
+                        <p class="px-3 my-0 py-1"><%= key %></p>
+                    </div>                    
+                <% } else { %>
+                    <div class="server-button">
+                        <p class="px-3 my-0 py-1"><%= key %></p>
+                    </div>
+                <% } %>
+            </a>
+        <% }); %>
     </div>
 
 

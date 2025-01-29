@@ -347,6 +347,12 @@ app.get('/favs', (req, res) => {
 // Movie Details Route
 app.get('/streammovie/:id', async (req, res) => {
   const streamId = req.params.id; // Get the movie ID from the URL
+  let curr_key = req.query.key;
+  let curr_src;
+
+  if (!curr_key) {
+    curr_key = 'VidSrc';
+  }
 
   try {
     // Fetch detailed movie information
@@ -357,8 +363,16 @@ app.get('/streammovie/:id', async (req, res) => {
     // Find the backdrop image if available
     const backdropPath = movie.backdrop_path ? `${TMDB_IMAGE_BASE_URL}/w1280${movie.backdrop_path}` : null;
 
+    // create list of sources
+    const sources = new Map([
+      ['VidSrc', encodeURI(`https://www.2embed.cc/embed/${streamId}`)],
+      ['SuperEm', encodeURI(`https://multiembed.mov/?video_id=${streamId}&tmdb=1`)]
+    ]);
+    curr_src = sources.get(curr_key);
+ 
+
     // Render movie details page
-    res.render('streammovie', { streamId, movie, backdropPath, imageBaseUrl: TMDB_IMAGE_BASE_URL, });
+    res.render('streammovie', { streamId, sources, curr_key, curr_src, movie, backdropPath, imageBaseUrl: TMDB_IMAGE_BASE_URL, });
 
   } catch (error) {
     console.error('Error fetching movie details:', error.message);
@@ -368,6 +382,12 @@ app.get('/streammovie/:id', async (req, res) => {
 
 app.get('/streamtv/:tv_id/season/:season_number/episode/:episode_number', async (req, res) => {
   const { tv_id, season_number, episode_number } = req.params;
+  let curr_key = req.query.key;
+  let curr_src;
+
+  if (!curr_key) {
+    curr_key = 'VidSrc';
+  }
 
   try {
     // Fetch the episode details
@@ -382,8 +402,18 @@ app.get('/streamtv/:tv_id/season/:season_number/episode/:episode_number', async 
     const seasonResponse = await axios.get(`${TMDB_BASE_URL}/tv/${tv_id}/season/${season_number}`, { params: { api_key: TMDB_API_KEY }, });
     const season = seasonResponse.data;
 
+    // create list of sources
+    const sources = new Map([
+      ['VidSrc', encodeURI(`https://www.2embed.cc/embedtv/${tv_id}&s=${season_number}&e=${episode_number}`)],
+      ['SuperEm', encodeURI(`https://multiembed.mov/?video_id=${tv_id}&tmdb=1&s=${season_number}&e=${episode_number}`)],
+      ['Anime', encodeURI(`https://2anime.xyz/embed/${tvshow.name}-episode-${episode_number}`)]
+    ]);
+    curr_src = sources.get(curr_key);
+
+
+
     // Render movie details page
-    res.render('streamtv', { tv_id, episode, tvshow, season, imageBaseUrl: TMDB_IMAGE_BASE_URL, availableSeasons: tvshow.seasons, });
+    res.render('streamtv', { tv_id, episode, tvshow, season, sources, curr_key, curr_src, imageBaseUrl: TMDB_IMAGE_BASE_URL, availableSeasons: tvshow.seasons, });
 
   } catch (error) {
     console.error('Error fetching movie details:', error.message);

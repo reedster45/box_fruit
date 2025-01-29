@@ -9,7 +9,7 @@ html, body {
 
     height: 100%;
     color: antiquewhite;
-    background-color: #1d1d1d;
+    background-color: #0f0f0f;
 }
 
 h1, #plundertv {
@@ -25,15 +25,16 @@ h1, #plundertv {
     left: 0;
     width: 100%;
     z-index: 1000;
+    background-color: #0f0f0f;
   }
 
 #search-bar {
-    background-color: #495057;
+    background-color: #191919;
     width: 35vw;
 }
 
 #search {
-    background-color: #495057;
+    background-color: #191919;
     border-radius: 0;
     color: antiquewhite;
 }
@@ -43,7 +44,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 #search-btn {
-    background-color: #495057;
+    background-color: #191919;
 }
 
 #search-icon {
@@ -104,7 +105,7 @@ input[type="search"]::-webkit-search-cancel-button {
     left: -15%; /* Initially hidden on the left side */
     width: 15%;
     height: 100%;
-    background-color: #343a40;
+    background-color: #191919;
     color: antiquewhite;
     transition: left 0.3s ease-in-out;
     padding-top: 5%;
@@ -117,7 +118,7 @@ padding: 10px 15px;
 }
 
 #sidebar .nav-link:hover {
-background-color: #495057;
+background-color: #0f0f0f;
 }
 
 /* When sidebar is active (toggled), move it to the left */
@@ -222,18 +223,15 @@ body.sidebar-open .episode-list {
     width: 100%;
 }
 
-video {
-    width: 100%;
-    height: auto;
-    border: 2px solid #000;
-}
-
 .server-button {
-    margin: 0 2% 0 2%;
-    padding: 0 1% 0 1%;
+    margin: 0 10% 0 10%;
     border-radius: 10%;
     background-color: #000;
     color: antiquewhite;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -361,7 +359,7 @@ video {
 /* browse styling */
 .filter-box {
     display: flex;
-    font-size: xx-small;
+    font-size: small;
     width: 200px;
     height: 50%;
     overflow: hidden;
@@ -370,11 +368,12 @@ video {
   }
   
   .filter-option {
-    font-family: "Oswald", serif;
+    font-family: "Smooch Sans", serif;
+    font-weight: 600;
     flex: 1;
     padding: 10px;
     text-align: center;
-    background-color: #222222;
+    background-color: #191919;
     color: antiquewhite;
     transition: background-color 0.3s;
   }
@@ -400,7 +399,8 @@ video {
 
 /* footer */
 footer {
-    font-family: "Oswald", serif;
+    font-family: "Smooch Sans", serif;
+    font-weight: 500;
     width: 100%;
     background: #333;
     color: antiquewhite;
@@ -421,9 +421,16 @@ footer {
 
 
 
-
+/* box shadow around iframe */
 .stream-glow {
-    box-shadow: rgba(177, 177, 177, 0.383) 0 0 40px 30px;
+    box-shadow: 
+    0 0 50px rgba(146, 146, 146, 0.1),
+    0 0 100px rgba(146, 146, 146, 0.05),
+    0 0 1500px rgba(146, 146, 146, 0.03),
+    0 0 200px rgba(146, 146, 146, 0.02);  
+  
+    border-radius: 1%;
+    margin-bottom: 5%;
 }
 
 

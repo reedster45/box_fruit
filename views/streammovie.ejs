@@ -8,9 +8,26 @@
         <div class="stream-content text-center">
             <h1 class="py-3"><%= movie.title %></h1>
 
-            <iframe class="stream-glow mt-5" src="https://www.2embed.cc/embed/<%= streamId %>" title="<%= movie.title %>" width="900" height="500" frameborder="0" scrolling="no" allowfullscreen></iframe>
+            <iframe class="stream-glow mt-5" src="<%= curr_src %>" title="<%= movie.title %>" width="900" height="500" frameborder="0" scrolling="no" allowfullscreen></iframe>
 
         </div>
+    </div>
+
+
+    <div class="d-flex justify-content-center py-3 px-5 w-100">
+        <% sources.forEach((src, key) => { %>
+            <a href="/streammovie/<%= movie.id %>?key=<%= key %>" style="text-decoration: none;">
+                <% if (key == curr_key) { %>
+                    <div class="server-button" style="background-color: rgb(105, 105, 105);">
+                        <p class="px-3 my-0 py-1"><%= key %></p>
+                    </div>                    
+                <% } else { %>
+                    <div class="server-button">
+                        <p class="px-3 my-0 py-1"><%= key %></p>
+                    </div>
+                <% } %>
+            </a>
+        <% }); %>
     </div>
 
 
