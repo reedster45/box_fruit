@@ -406,7 +406,7 @@ app.get('/streamtv/:tv_id/season/:season_number/episode/:episode_number', async 
     const sources = new Map([
       ['VidSrc', encodeURI(`https://www.2embed.cc/embedtv/${tv_id}&s=${season_number}&e=${episode_number}`)],
       ['SuperEm', encodeURI(`https://multiembed.mov/?video_id=${tv_id}&tmdb=1&s=${season_number}&e=${episode_number}`)],
-      ['Anime', encodeURI(`https://2anime.xyz/embed/${tvshow.name}-episode-${episode_number}`)]
+      ['Anime', encodeURI(`https://2anime.xyz/embed/${tvshow.name.replace(/ /g, '-')}-episode-${episode_number}`)]
     ]);
     curr_src = sources.get(curr_key);
 
