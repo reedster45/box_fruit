@@ -8,10 +8,10 @@
     </div>
 
     <div id="media-type" class="filter-box text-center align-items-center my-auto">
-        <a href="/browsetv?page=<%= page %>&query=<%= query %>&sort_by=popularity.desc" class="no-underline"><div id="sort-popularity" class="filter-option selected">popular</div></a>
-        <a href="/browsetv?page=<%= page %>&query=<%= query %>&sort_by=vote_average.desc" class="no-underline"><div id="sort-trending" class="filter-option">trending</div></a>
+        <a href="/browsetv?page=<%= page %>&query=<%= query %>&sort_by=popularity.desc" class="no-underline"><div id="sort-popularity" class="filter-option selected">trending</div></a>
+        <a href="/browsetv?page=<%= page %>&query=<%= query %>&sort_by=vote_count.desc" class="no-underline"><div id="sort-trending" class="filter-option">popular</div></a>
         <a href="/browsetv?page=<%= page %>&query=<%= query %>&sort_by=first_air_date.desc" class="no-underline"><div id="sort-date" class="filter-option">date</div></a>
-        <a href="/browsetv?page=<%= page %>&query=<%= query %>&sort_by=name.desc" class="no-underline"><div id="sort-alpha" class="filter-option">alphabet</div></a>
+        <a href="/browsetv?page=<%= page %>&query=<%= query %>&sort_by=name.asc" class="no-underline"><div id="sort-alpha" class="filter-option">alphabet</div></a>
     </div>
 
     <div class="input-group" id="search-btn">
@@ -37,6 +37,7 @@
                         </a>
                         <div class="desc-hover-box">
                             <h5><%= show.name %></h5>
+                            <p style="font-style: italic;"><%= show.first_air_date %></p>
                             <%= show.overview %>
                         </div>
                     </div>
@@ -56,8 +57,10 @@
   
         <!-- Page Number Input -->
         <form class="mx-3" action="/browsetv" method="get">
-          <label for="page-input" class="visually-hidden">Page Number</label>
-          <input type="number" id="page-input" name="page" class="form-control" min="1" max="<%= total_pages %>" value="<%= page %>" />
+            <input type="number" id="page-input" name="page" class="form-control" min="1" max="<%= total_pages %>" value="<%= page %>" />
+            <input type="hidden" name="query" value="<%= query %>" />
+            <input type="hidden" name="sort_by" value="<%= sort_by %>" />
+            <label for="page-input" class="visually-hidden">Page Number</label>
         </form>
   
         <!-- Next Page Button -->
