@@ -151,13 +151,17 @@ app.get('/tvshow/:id/season/:season_number', async (req, res) => {
 app.get('/browsemovie', async (req, res) => {
   try {
     // Pagination parameters (defaults to page 1 if no query provided)
-    const page = parseInt(req.query.page) || 1;
+    let page = parseInt(req.query.page) || 1;
     const per_page = 36;
     const query = req.query.query;
     let sort_by = req.query.sort_by;
 
     if (!sort_by) {
       sort_by = 'popularity.desc';
+    }
+
+    if (page > 500) {
+      page = 500;
     }
 
     // Fetch movies from TMDB API
@@ -206,13 +210,17 @@ app.get('/browsemovie', async (req, res) => {
 app.get('/browsetv', async (req, res) => {
   try {
     // Pagination parameters (defaults to page 1 if no query provided)
-    const page = parseInt(req.query.page) || 1;
+    let page = parseInt(req.query.page) || 1;
     const per_page = 36;
     const query = req.query.query;
     let sort_by = req.query.sort_by;
 
     if (!sort_by) {
       sort_by = 'popularity.desc';
+    }
+
+    if (page > 500) {
+      page = 500;
     }
 
     // Fetch movies from TMDB API
@@ -366,7 +374,8 @@ app.get('/streammovie/:id', async (req, res) => {
     // create list of sources
     const sources = new Map([
       ['VidSrc', encodeURI(`https://www.2embed.cc/embed/${streamId}`)],
-      ['SuperEm', encodeURI(`https://multiembed.mov/?video_id=${streamId}&tmdb=1`)]
+      ['SuperEm', encodeURI(`https://multiembed.mov/?video_id=${streamId}&tmdb=1`)],
+      ['VidCloud', encodeURI(`https://vidcloud1.com/dubbed.php?id=${streamId}`)]
     ]);
     curr_src = sources.get(curr_key);
  
@@ -406,7 +415,7 @@ app.get('/streamtv/:tv_id/season/:season_number/episode/:episode_number', async 
     const sources = new Map([
       ['VidSrc', encodeURI(`https://www.2embed.cc/embedtv/${tv_id}&s=${season_number}&e=${episode_number}`)],
       ['SuperEm', encodeURI(`https://multiembed.mov/?video_id=${tv_id}&tmdb=1&s=${season_number}&e=${episode_number}`)],
-      ['Anime', encodeURI(`https://2anime.xyz/embed/${tvshow.name.replace(/ /g, '-')}-episode-${episode_number}`)]
+      ['Anime', encodeURI(`https://2anime.xyz/embed/${tvshow.name.replace(/ /g, '-')}-episode-${episode_number}`)],
     ]);
     curr_src = sources.get(curr_key);
 

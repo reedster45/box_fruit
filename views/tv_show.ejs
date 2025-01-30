@@ -70,15 +70,15 @@
   <div class="episodes">
   <h3>Episodes (Season <%= season.season_number %>):</h3>
   <% season.episodes.forEach(episode => { %>
-    <div class="episode">
-      <h4>
-        <a href="/streamtv/<%= tvshow.id %>/season/<%= season.season_number %>/episode/<%= episode.episode_number %>">
-          Episode <%= episode.episode_number %>: <%= episode.name %>
-        </a>
-      </h4>
-      <p><strong>Air Date:</strong> <%= episode.air_date %></p>
-      <p><strong>Overview:</strong> <%= episode.overview %></p>
-    </div>
+    <a class="episode-link no-underline" href="/streamtv/<%= tvshow.id %>/season/<%= season.season_number %>/episode/<%= episode.episode_number %>">
+      <div class="episode py-3">
+        <h4>
+            Episode <%= episode.episode_number %>: <%= episode.name %>
+        </h4>
+        <p class="py-0 my-0"><strong>Air Date:</strong> <%= episode.air_date %></p>
+        <p class="py-0 my-0"><strong>Overview:</strong> <%= episode.overview %></p>
+      </div>
+    </a>
   <% }); %>
   </div>
 </div>

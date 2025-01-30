@@ -115,6 +115,7 @@ input[type="search"]::-webkit-search-cancel-button {
 #sidebar .nav-link {
 color: antiquewhite;
 padding: 10px 15px;
+transition: ease-out 0.7s;
 }
 
 #sidebar .nav-link:hover {
@@ -335,10 +336,16 @@ body.sidebar-open .episode-list {
 .episode {
     padding: 5px;
     cursor: pointer;
+    transition: ease-out 0.7s;
+    border-bottom: 1px solid antiquewhite;
 }
 
 .episode:hover {
     background-color: #495057;
+}
+
+.episode-link {
+    color: antiquewhite;
 }
 
 .browse-controls {
