@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "name": "box_fruit",
+  "name": "plundertv",
   "version": "1.0.0",
   "main": "app.js",
   "bin": "app.js",
