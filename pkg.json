@@ -1,9 +1,0 @@
-{
-    "assets": [
-        "views/**/*",
-        "public/**/*"
-    ],
-    "scripts": {
-        "postinstall": "echo 'Installation complete!'"
-    }
-  }
